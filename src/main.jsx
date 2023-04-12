@@ -2,17 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import SignIn from './pages/login/SignIn/SignIn';
 import SignUp from './pages/login/SignUp/SignUp';
-import Login from './pages/login/Login';
+import LoginLayout from './pages/login/LoginLayout';
 // import ForgotPassword from './pages/login/ForgotPassword/ForgotPassword';
-// import Layout from './pages/portal/Portal';
-// import Home from './pages/portal/Home/Home';
+import PortalLayout from './pages/portal/PortalLayout';
+import Home from './pages/portal/Home/Home';
 import './global.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
-    path: '/login/',
-    element: <Login />,
+    path: '/',
+    element: <PortalLayout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+    ],
+  },
+  {
+    path: '/login',
+    element: <LoginLayout />,
     children: [
       {
         path: 'signIn',

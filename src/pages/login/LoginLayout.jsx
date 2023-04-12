@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import * as s from './style';
 
-const Login = () => {
+const LoginLayout = () => {
   return (
     <s.Cover>
       <s.Container>
@@ -12,4 +12,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginLayout;

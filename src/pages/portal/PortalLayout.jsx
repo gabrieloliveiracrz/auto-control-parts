@@ -8,20 +8,19 @@ const Portal = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate('/login/signin');
     }
   }, []);
 
   return (
     <div>
       <s.Header>
-        <s.Span>Olá, {user && user.name}</s.Span>
+        <s.Span>Olá, {user ? user.name : '404'}</s.Span>
         <s.UserIcon>
           <User size={36} />
         </s.UserIcon>
       </s.Header>
       <Outlet />
-      <s.Footer>TCC Gabriel & Gabriel</s.Footer>
     </div>
   );
 };
