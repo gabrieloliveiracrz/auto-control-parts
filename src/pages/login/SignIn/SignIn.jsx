@@ -110,7 +110,7 @@ const SignIn = () => {
       <s.SignUp>
         <s.p>
           Ainda não possui acesso?{' '}
-          <s.StyledLink to="/login/SignUp">
+          <s.StyledLink to="/login/signUp">
             <s.Span>Clique Aqui</s.Span>
           </s.StyledLink>
         </s.p>

@@ -10,32 +10,18 @@ import './global.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
-  // {
-  //   path: '/',
-  //   element: <Layout />,
-  //   children: [
-  //     {
-  //       path: '/',
-  //       element: <Home />,
-  //     },
-  //   ],
-  // },
   {
-    path: '/login',
+    path: '/login/',
     element: <Login />,
     children: [
       {
-        path: '/login',
+        path: 'signIn',
         element: <SignIn />,
       },
       {
-        path: '/login/SignUp',
+        path: 'signUp',
         element: <SignUp />,
       },
-      // {
-      //   path: '/forgotPassword',
-      //   element: <ForgotPassword />,
-      // },
     ],
   },
 ]);
