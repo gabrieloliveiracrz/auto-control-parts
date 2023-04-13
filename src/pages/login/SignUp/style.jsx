@@ -24,16 +24,16 @@ export const Title = styled.h2`
   color: #f2f2f2;
 `;
 
+export const Row = styled.div`
+  display: flex;
+  gap: 1.5rem;
+`;
+
 export const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-`;
-
-export const Label = styled.label`
-  font-size: 1.2rem;
-  color: #404040;
-  font-weight: var(--font-regular);
+  flex: 1;
 `;
 
 export const iconWithInput = styled.div`
@@ -97,8 +97,4 @@ export const p = styled.p`
   color: #f2f2f2;
   font-weight: var(--font-light);
   font-size: 1rem;
-`;
-
-export const SignUp = styled.div`
-  text-align: center;
 `;
