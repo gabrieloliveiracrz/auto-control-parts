@@ -21,4 +21,10 @@ export const Confirm = styled.div`
     background-color: #6e6e6e;
     transition: 300ms;
   }
+
+  & button:disabled {
+    background-color: #6e6e6e;
+    transition: 300ms;
+    cursor: not-allowed;
+  }
 `;

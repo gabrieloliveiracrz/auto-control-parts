@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { EyeSlash, Eye, Key, User } from '@phosphor-icons/react';
+import { EyeSlash, Eye, Key, User, WarningCircle } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
 import Confirm from '../../../components/Confirm/Confirm';
-import * as s from './style';
+import * as s from '../style';
 import api from '../../../services/api';
 
 const SignIn = () => {
@@ -12,6 +12,7 @@ const SignIn = () => {
   const [form, setForm] = useState({});
   const [user, setUser] = useState({});
   const [loggin, setLoggin] = useState(false);
+  const [capsActive, setCapsActive] = useState(false);
 
   const handleLogininputs = (e) => {
     setForm({
@@ -60,6 +61,14 @@ const SignIn = () => {
     }
   };
 
+  const capsLock = (e) => {
+    if (e.getModifierState('CapsLock')) {
+      setCapsActive(true);
+    } else {
+      setCapsActive(false);
+    }
+  };
+
   return (
     <s.SignIn>
       <form method="post" onSubmit={(e) => onSubmit(e)}>
@@ -88,6 +97,7 @@ const SignIn = () => {
               placeholder="Senha"
               required
               onChange={(e) => handleLogininputs(e)}
+              onKeyDown={(e) => capsLock(e)}
             ></s.Input>
             {icon === true ? (
               <Eye
@@ -103,6 +113,12 @@ const SignIn = () => {
               />
             )}
           </s.iconWithInput>
+          {capsActive ? (
+            <s.WarningSpan>
+              <WarningCircle size={30} />
+              CapsLock Ativado!
+            </s.WarningSpan>
+          ) : null}
           <s.StyledLink to="/forgotPassword">
             <s.Span>Esqueceu a senha?</s.Span>
           </s.StyledLink>

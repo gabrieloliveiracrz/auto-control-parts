@@ -4,7 +4,9 @@ import * as s from './style';
 const Confirm = (props) => {
   return (
     <s.Confirm>
-      <button type="submit">{props.message}</button>
+      <button type="submit" disabled={props.disabled}>
+        {props.message}
+      </button>
     </s.Confirm>
   );
 };
