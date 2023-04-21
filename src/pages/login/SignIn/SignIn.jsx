@@ -31,7 +31,7 @@ const SignIn = () => {
 
   const validateUser = () => {
     api
-      .post('/usuarios/login', {
+      .post('/users/login', {
         code: form.code,
         password: form.password,
       })

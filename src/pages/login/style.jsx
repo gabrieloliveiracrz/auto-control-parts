@@ -120,14 +120,14 @@ export const SignUp = styled.div`
 export const WarningSpan = styled.span`
   display: flex;
   align-items: center;
-  color: #ff7b16;
+  color: #f77a13;
   font-weight: var(--font-regular);
   animation-name: pull-down;
   animation-duration: 0.4s;
   animation-fill-mode: forwards;
 
   & .warning {
-    color: #ff7b16;
+    color: #f77a13;
     font-weight: var(--font-regular);
     padding-right: 2px;
   }

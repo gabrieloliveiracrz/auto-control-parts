@@ -10,6 +10,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import Confirm from '../../../components/Confirm/Confirm';
 import * as s from '../style';
+import api from '../../../services/api';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -21,14 +23,66 @@ const SignUp = () => {
   const [password, setPassword] = useState('password');
   const [confirmPass, setConfirmPass] = useState('password');
 
-  const handleInput = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  const handleInput = (e, data) => {
+    if (e && e.target) {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value,
+      });
+    } else if (data) {
+      setForm({
+        ...form,
+        code: data.code,
+        name: data.name,
+      });
+    }
+  };
+
+  const verifyUserCode = (e) => {
+    e.target.value !== ''
+      ? api
+          .get('users/verify-user-code', {
+            params: {
+              code: e.target.value,
+            },
+          })
+          .then((response) => {
+            const { data } = response;
+            const { info, statusCode } = data;
+
+            if (statusCode === 200) {
+              if (info.access === 'S') {
+                handleInput(null, info);
+                setIsDisabled(true);
+                toast.warning(
+                  `Olá ${info.name}, você já possui acesso ao portal!`
+                );
+              } else {
+                handleInput(null, info);
+                setIsDisabled(false);
+              }
+            } else {
+              toast.error('Usuário não cadastrado no sistema!');
+            }
+          })
+      : null;
   };
 
   const verifyPassword = (e) => {
+    e.target.value !== ''
+      ? api
+          .get('users/verify-password', {
+            params: {
+              password: e.target.value,
+            },
+          })
+          .then((response) => {
+            const { data } = response;
+          })
+      : null;
+  };
+
+  const verifyEqualPassword = (e) => {
     if (form.password === e.target.value) {
       setDifPass(false);
       setIsDisabled(false);
@@ -58,9 +112,13 @@ const SignUp = () => {
     }
   };
 
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <s.SignIn>
-      <form method="post">
+      <form method="post" onSubmit={(e) => handleOnSubmit(e)}>
         <s.Title>Cadastro de Usuario</s.Title>
         <s.Row>
           <s.InputGroup>
@@ -71,6 +129,7 @@ const SignUp = () => {
                 className="code"
                 name="code"
                 placeholder="Código"
+                onBlur={(e) => verifyUserCode(e)}
                 maxLength={3}
                 required
               ></s.Input>
@@ -85,6 +144,7 @@ const SignUp = () => {
                 className="name"
                 name="name"
                 placeholder="Nome"
+                value={form.name ? form.name : ''}
                 required
                 readOnly
               ></s.Input>
@@ -101,7 +161,10 @@ const SignUp = () => {
                 className="password"
                 name="password"
                 placeholder="Senha"
-                onInput={(e) => handleInput(e)}
+                onBlur={(e) => {
+                  handleInput(e);
+                  verifyPassword(e);
+                }}
                 required
               ></s.Input>
               {iconPass === true ? (
@@ -128,7 +191,7 @@ const SignUp = () => {
                 className="confirmPass"
                 name="confirmPass"
                 placeholder="Confirmar senha"
-                onInput={(e) => verifyPassword(e)}
+                onInput={(e) => verifyEqualPassword(e)}
                 required
               ></s.Input>
               {iconConfirm === true ? (

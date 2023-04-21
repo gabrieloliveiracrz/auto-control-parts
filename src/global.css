@@ -27,3 +27,19 @@ input:-webkit-autofill:focus {
   -webkit-font-feature-settings: off;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+.Toastify__toast--success {
+  background-color: #49c63b;
+}
+
+.Toastify__toast--info {
+  background-color: #00a2e2;
+}
+
+.Toastify__toast--warning {
+  background-color: #f77a13;
+}
+
+.Toastify__toast--danger {
+  background-color: #f93465;
+}
