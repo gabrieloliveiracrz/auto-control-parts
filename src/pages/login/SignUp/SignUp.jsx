@@ -16,7 +16,9 @@ import { toast } from 'react-toastify';
 const SignUp = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({});
+  const [checkPass, setCheckPass] = useState(false);
   const [difPass, setDifPass] = useState(false);
+  const [messages, setMessages] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
   const [iconPass, setIconPass] = useState(true);
   const [iconConfirm, setIconConfirm] = useState(true);
@@ -78,6 +80,11 @@ const SignUp = () => {
           })
           .then((response) => {
             const { data } = response;
+            const { message, statusCode } = data;
+            if (statusCode === 400) {
+              setMessages([message]);
+              setCheckPass(true);
+            }
           })
       : null;
   };
@@ -181,6 +188,13 @@ const SignUp = () => {
                 />
               )}
             </s.iconWithInput>
+            {checkPass
+              ? console.log(messages)
+              : // <s.WarningSpan>
+                //   <WarningCircle size={30} className="warning" />
+                //   <span>{msg}</span>
+                // </s.WarningSpan>
+                null}
           </s.InputGroup>
 
           <s.InputGroup>
@@ -211,7 +225,8 @@ const SignUp = () => {
 
             {difPass ? (
               <s.WarningSpan>
-                <WarningCircle size={30} className="warning" /> Senha Diferente!
+                <WarningCircle size={30} className="warning" />
+                <span>Senha Diferente!</span>
               </s.WarningSpan>
             ) : null}
           </s.InputGroup>
