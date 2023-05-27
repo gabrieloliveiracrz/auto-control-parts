@@ -9,10 +9,21 @@ export const Cover = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  width: 80%;
   height: 100vh;
+
+  @media (max-width: 1360px) {
+    /* Ajuste de estilo para monitores médios */
+    justify-content: center;
+    width: 90%;
+  }
+
+  @media (max-width: 768px) {
+    /* Ajuste de estilo para telas menores */
+    justify-content: center;
+    width: 100%;
+  }
 `;
 
 export const SignIn = styled.div`
@@ -41,6 +52,16 @@ export const Title = styled.h2`
 export const Row = styled.div`
   display: flex;
   gap: 1.5rem;
+
+  @media (max-width: 1360px) {
+    /* Ajuste de estilo para telas menores */
+    flex-direction: column;
+  }
+
+  @media (max-width: 768px) {
+    /* Ajuste de estilo para telas menores */
+    flex-direction: column;
+  }
 `;
 
 export const InputGroup = styled.div`
@@ -50,7 +71,7 @@ export const InputGroup = styled.div`
   flex: 1;
 `;
 
-export const iconWithInput = styled.div`
+export const IconWithInput = styled.div`
   display: flex;
   flex-direction: row;
   border: 1px solid #242424;
@@ -89,6 +110,16 @@ export const Input = styled.input`
     color: #f2f2f2;
     font-weight: var(--font-regular);
     opacity: 0.5;
+  }
+
+  @media (max-width: 1360px) {
+    /* Ajuste de estilo para monitores médios */
+    width: 16rem;
+  }
+
+  @media (max-width: 768px) {
+    /* Ajuste de estilo para telas menores */
+    width: 100%;
   }
 `;
 

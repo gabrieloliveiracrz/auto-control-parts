@@ -74,7 +74,7 @@ const SignIn = () => {
       <form method="post" onSubmit={(e) => onSubmit(e)}>
         <s.Title>Bem-vindo(a)!</s.Title>
         <s.InputGroup>
-          <s.iconWithInput className="iconWithInput">
+          <s.IconWithInput className="IconWithInput">
             <User size={30} className="icon" />
             <s.Input
               type="text"
@@ -84,10 +84,10 @@ const SignIn = () => {
               required
               onChange={(e) => handleLogininputs(e)}
             ></s.Input>
-          </s.iconWithInput>
+          </s.IconWithInput>
         </s.InputGroup>
         <s.InputGroup>
-          <s.iconWithInput>
+          <s.IconWithInput>
             <Key size={30} className="icon" />
             <s.Input
               type={type}
@@ -112,7 +112,7 @@ const SignIn = () => {
                 onClick={(e) => changeEye(e)}
               />
             )}
-          </s.iconWithInput>
+          </s.IconWithInput>
           {capsActive ? (
             <s.WarningSpan>
               <WarningCircle size={30} />

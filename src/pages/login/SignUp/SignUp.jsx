@@ -16,14 +16,38 @@ import { toast } from 'react-toastify';
 const SignUp = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({});
-  const [checkPass, setCheckPass] = useState(false);
   const [difPass, setDifPass] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [isDisabled, setIsDisabled] = useState(false);
   const [iconPass, setIconPass] = useState(true);
   const [iconConfirm, setIconConfirm] = useState(true);
-  const [password, setPassword] = useState('password');
+  const [password, setPassword] = useState('');
+  const [type, setType] = useState('password');
   const [confirmPass, setConfirmPass] = useState('password');
+  const [isValidLen, setIsValidLen] = useState(false);
+  const [hasUppercase, setHasUppercase] = useState(false);
+  const [hasDigit, setHasDigit] = useState(false);
+  const [hasSpecialChar, setHasSpecialChar] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+
+    const isValidPasswordLen = newPassword.length <= 32 && newPassword.length >= 8;
+    const hasUppercase = /[A-Z]/.test(newPassword);
+    const hasDigit = /\d/.test(newPassword);
+    const hasSpecialChar = /[!@#$%^&*]/.test(newPassword);
+
+    setIsValidLen(isValidPasswordLen);
+    setHasUppercase(hasUppercase);
+    setHasDigit(hasDigit);
+    setHasSpecialChar(hasSpecialChar);
+
+    const isPasswordValid = isValidPasswordLen && hasUppercase && hasDigit && hasSpecialChar;
+    setIsPasswordValid(isPasswordValid);
+  };
+
+
+  const isFormFilled = password.trim() !== '';
 
   const handleInput = (e, data) => {
     if (e && e.target) {
@@ -43,51 +67,33 @@ const SignUp = () => {
   const verifyUserCode = (e) => {
     e.target.value !== ''
       ? api
-          .get('users/verify-user-code', {
-            params: {
-              code: e.target.value,
-            },
-          })
-          .then((response) => {
-            const { data } = response;
-            const { info, statusCode } = data;
+        .get('users/verify-user-code', {
+          params: {
+            code: e.target.value,
+          },
+        })
+        .then((response) => {
+          const { data } = response;
+          const { info, statusCode } = data;
 
-            if (statusCode === 200) {
-              if (info.access === 'S') {
-                handleInput(null, info);
-                setIsDisabled(true);
-                toast.warning(
-                  `Olá ${info.name}, você já possui acesso ao portal!`
-                );
-              } else {
-                handleInput(null, info);
-                setIsDisabled(false);
-              }
+          if (statusCode === 200) {
+            if (info.access === 'S') {
+              handleInput(null, info);
+              setIsDisabled(true);
+              toast.warning(
+                `Olá ${info.name}, você já possui acesso ao portal!`
+              );
             } else {
-              toast.error('Usuário não cadastrado no sistema!');
+              handleInput(null, info);
+              setIsDisabled(false);
             }
-          })
+          } else {
+            toast.error('Usuário não cadastrado no sistema!');
+          }
+        })
       : null;
   };
 
-  const verifyPassword = (e) => {
-    e.target.value !== ''
-      ? api
-          .get('users/verify-password', {
-            params: {
-              password: e.target.value,
-            },
-          })
-          .then((response) => {
-            const { data } = response;
-            const { message, statusCode } = data;
-            if (statusCode === 400) {
-              setMessages([message]);
-              setCheckPass(true);
-            }
-          })
-      : null;
-  };
 
   const verifyEqualPassword = (e) => {
     if (form.password === e.target.value) {
@@ -102,10 +108,10 @@ const SignUp = () => {
   const changeEyePass = (e) => {
     if (iconPass === true) {
       setIconPass(false);
-      setPassword('text');
+      setType('text');
     } else {
       setIconPass(true);
-      setPassword('password');
+      setType('password');
     }
   };
 
@@ -129,7 +135,7 @@ const SignUp = () => {
         <s.Title>Cadastro de Usuario</s.Title>
         <s.Row>
           <s.InputGroup>
-            <s.iconWithInput className="iconWithInput code">
+            <s.IconWithInput className="IconWithInput code">
               <IdentificationCard size={30} className="icon" />
               <s.Input
                 type="text"
@@ -140,11 +146,11 @@ const SignUp = () => {
                 maxLength={3}
                 required
               ></s.Input>
-            </s.iconWithInput>
+            </s.IconWithInput>
           </s.InputGroup>
 
           <s.InputGroup>
-            <s.iconWithInput className="iconWithInput name">
+            <s.IconWithInput className="IconWithInput name">
               <User size={30} className="icon" />
               <s.Input
                 type="text"
@@ -155,23 +161,23 @@ const SignUp = () => {
                 required
                 readOnly
               ></s.Input>
-            </s.iconWithInput>
+            </s.IconWithInput>
           </s.InputGroup>
         </s.Row>
 
         <s.Row>
           <s.InputGroup>
-            <s.iconWithInput className="iconWithInput">
+            <s.IconWithInput className="IconWithInput">
               <Key size={30} className="icon" />
               <s.Input
-                type={password}
+                type={type}
                 className="password"
                 name="password"
                 placeholder="Senha"
                 onBlur={(e) => {
                   handleInput(e);
-                  verifyPassword(e);
                 }}
+                onInput={(e) => handlePasswordChange(e)}
                 required
               ></s.Input>
               {iconPass === true ? (
@@ -182,23 +188,42 @@ const SignUp = () => {
                 />
               ) : (
                 <EyeSlash
+
                   size={30}
                   className="icon eye"
                   onClick={(e) => changeEyePass(e)}
                 />
               )}
-            </s.iconWithInput>
-            {checkPass
-              ? console.log(messages)
-              : // <s.WarningSpan>
-                //   <WarningCircle size={30} className="warning" />
-                //   <span>{msg}</span>
-                // </s.WarningSpan>
-                null}
+            </s.IconWithInput>
+            {isFormFilled && !isValidLen && (
+              <s.WarningSpan>
+                <WarningCircle size={30} className="warning" />
+                <span>A senha deve ter entre 8 e 32 caracteres.</span>
+              </s.WarningSpan>
+            )}
+            {isFormFilled && !hasUppercase && (
+              <s.WarningSpan>
+                <WarningCircle size={30} className="warning" />
+                <span>A senha deve conter pelo menos uma letra maiúscula.</span>
+              </s.WarningSpan>
+            )}
+            {isFormFilled && !hasDigit && (
+              <s.WarningSpan>
+                <WarningCircle size={30} className="warning" />
+                <span>A senha deve conter pelo menos um dígito.</span>
+              </s.WarningSpan>
+            )}
+            {isFormFilled && !hasSpecialChar && (
+              <s.WarningSpan>
+                <WarningCircle size={30} className="warning" />
+                <span>A senha deve conter pelo menos um caractere especial.</span>
+              </s.WarningSpan>
+            )}
+
           </s.InputGroup>
 
           <s.InputGroup>
-            <s.iconWithInput className="iconWithInput">
+            <s.IconWithInput className="IconWithInput">
               <Key size={30} className="icon" />
               <s.Input
                 type={confirmPass}
@@ -221,7 +246,7 @@ const SignUp = () => {
                   onClick={(e) => changeEyeConfirm(e)}
                 />
               )}
-            </s.iconWithInput>
+            </s.IconWithInput>
 
             {difPass ? (
               <s.WarningSpan>
@@ -232,7 +257,7 @@ const SignUp = () => {
           </s.InputGroup>
         </s.Row>
 
-        <Confirm message="Cadastrar" disabled={isDisabled} />
+        <Confirm message="Cadastrar" disabled={!isPasswordValid || difPass} />
       </form>
     </s.SignIn>
   );
