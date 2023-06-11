@@ -1,14 +1,15 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as s from './style';
 
-const Confirm = (props) => {
-  const navigate = useNavigate();
+const Back = (props) => {
   return (
-    <s.Confirm>
-      <button type="submit">{props.message}</button>
-    </s.Confirm>
+    <s.StyledLink to={props.redirect}>
+      <s.Back>
+        <button>{props.message}</button>
+      </s.Back>
+    </s.StyledLink>
+
   );
 };
 
-export default Confirm;
+export default Back;

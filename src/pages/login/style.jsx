@@ -26,7 +26,7 @@ export const Container = styled.div`
   }
 `;
 
-export const SignIn = styled.div`
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -53,7 +53,7 @@ export const Row = styled.div`
   display: flex;
   gap: 1.5rem;
 
-  @media (max-width: 1360px) {
+  @media (max-width: 1260px) {
     /* Ajuste de estilo para telas menores */
     flex-direction: column;
   }
@@ -73,11 +73,11 @@ export const InputGroup = styled.div`
 
 export const IconWithInput = styled.div`
   display: flex;
-  flex-direction: row;
   border: 1px solid #242424;
   background-color: #0e0e0e;
   border-radius: 10px;
   padding: 1rem;
+  min-width: 400px;
   gap: 0.75rem;
 
   &:has(input:focus) {
@@ -93,6 +93,16 @@ export const IconWithInput = styled.div`
 
   & .eye {
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    /* Ajuste de estilo para telas menores */
+    min-width: 300px;
+  }
+
+  @media (max-width: 500px) {
+    /* Ajuste de estilo para telas menores */
+    min-width: 150px;
   }
 `;
 
@@ -144,8 +154,14 @@ export const p = styled.p`
   font-size: 1rem;
 `;
 
-export const SignUp = styled.div`
+export const NotAcess = styled.div`
   text-align: center;
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 export const WarningSpan = styled.span`

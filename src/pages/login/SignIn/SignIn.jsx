@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { EyeSlash, Eye, Key, User, WarningCircle } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
 import Confirm from '../../../components/Confirm/Confirm';
+import Back from '../../../components/Back/Back';
 import * as s from '../style';
 import api from '../../../services/api';
 
@@ -70,7 +71,7 @@ const SignIn = () => {
   };
 
   return (
-    <s.SignIn>
+    <s.Content>
       <form method="post" onSubmit={(e) => onSubmit(e)}>
         <s.Title>Bem-vindo(a)!</s.Title>
         <s.InputGroup>
@@ -119,22 +120,22 @@ const SignIn = () => {
               CapsLock Ativado!
             </s.WarningSpan>
           ) : null}
-          <s.StyledLink to="/forgotPassword">
+          <s.StyledLink to="/login/forgotPassword">
             <s.Span>Esqueceu a senha?</s.Span>
           </s.StyledLink>
         </s.InputGroup>
         <Confirm message="Entrar" />
       </form>
 
-      <s.SignUp>
+      <s.NotAcess>
         <s.p>
           Ainda não possui acesso?{' '}
           <s.StyledLink to="/login/signUp">
             <s.Span>Clique Aqui</s.Span>
           </s.StyledLink>
         </s.p>
-      </s.SignUp>
-    </s.SignIn>
+      </s.NotAcess>
+    </s.Content>
   );
 };
 

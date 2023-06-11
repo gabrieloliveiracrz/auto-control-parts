@@ -9,6 +9,7 @@ import {
 } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
 import Confirm from '../../../components/Confirm/Confirm';
+import Back from '../../../components/Back/Back';
 import * as s from '../style';
 import api from '../../../services/api';
 import { toast } from 'react-toastify';
@@ -21,7 +22,6 @@ const SignUp = () => {
   const [iconConfirm, setIconConfirm] = useState(true);
   const [password, setPassword] = useState('');
   const [type, setType] = useState('password');
-  const [confirmPass, setConfirmPass] = useState('password');
   const [isValidLen, setIsValidLen] = useState(false);
   const [hasUppercase, setHasUppercase] = useState(false);
   const [hasDigit, setHasDigit] = useState(false);
@@ -45,7 +45,6 @@ const SignUp = () => {
     const isPasswordValid = isValidPasswordLen && hasUppercase && hasDigit && hasSpecialChar;
     setIsPasswordValid(isPasswordValid);
   };
-
 
   const isFormFilled = password.trim() !== '';
 
@@ -94,7 +93,6 @@ const SignUp = () => {
       : null;
   };
 
-
   const verifyEqualPassword = (e) => {
     if (form.password === e.target.value) {
       setDifPass(false);
@@ -130,39 +128,35 @@ const SignUp = () => {
   };
 
   return (
-    <s.SignIn>
+    <s.Content>
       <form method="post" onSubmit={(e) => handleOnSubmit(e)}>
         <s.Title>Cadastro de Usuario</s.Title>
         <s.Row>
-          <s.InputGroup>
-            <s.IconWithInput className="IconWithInput code">
-              <IdentificationCard size={30} className="icon" />
-              <s.Input
-                type="text"
-                className="code"
-                name="code"
-                placeholder="Código"
-                onBlur={(e) => verifyUserCode(e)}
-                maxLength={3}
-                required
-              ></s.Input>
-            </s.IconWithInput>
-          </s.InputGroup>
-
-          <s.InputGroup>
-            <s.IconWithInput className="IconWithInput name">
-              <User size={30} className="icon" />
-              <s.Input
-                type="text"
-                className="name"
-                name="name"
-                placeholder="Nome"
-                value={form.name ? form.name : ''}
-                required
-                readOnly
-              ></s.Input>
-            </s.IconWithInput>
-          </s.InputGroup>
+          <s.IconWithInput className="IconWithInput code">
+            <IdentificationCard size={30} className="icon" />
+            <s.Input
+              type="text"
+              className="code"
+              name="code"
+              placeholder="Código"
+              onBlur={(e) => verifyUserCode(e)}
+              maxLength={3}
+              required
+            ></s.Input>
+          </s.IconWithInput>
+          
+          <s.IconWithInput className="IconWithInput name">
+            <User size={30} className="icon" />
+            <s.Input
+              type="text"
+              className="name"
+              name="name"
+              placeholder="Nome"
+              value={form.name ? form.name : ''}
+              required
+              readOnly
+            ></s.Input>
+          </s.IconWithInput>
         </s.Row>
 
         <s.Row>
@@ -219,33 +213,19 @@ const SignUp = () => {
                 <span>A senha deve conter pelo menos um caractere especial.</span>
               </s.WarningSpan>
             )}
-
           </s.InputGroup>
 
           <s.InputGroup>
             <s.IconWithInput className="IconWithInput">
               <Key size={30} className="icon" />
               <s.Input
-                type={confirmPass}
+                type={type}
                 className="confirmPass"
                 name="confirmPass"
                 placeholder="Confirmar senha"
                 onInput={(e) => verifyEqualPassword(e)}
                 required
               ></s.Input>
-              {iconConfirm === true ? (
-                <Eye
-                  size={30}
-                  className="icon eye"
-                  onClick={(e) => changeEyeConfirm(e)}
-                />
-              ) : (
-                <EyeSlash
-                  size={30}
-                  className="icon eye"
-                  onClick={(e) => changeEyeConfirm(e)}
-                />
-              )}
             </s.IconWithInput>
 
             {difPass ? (
@@ -257,9 +237,12 @@ const SignUp = () => {
           </s.InputGroup>
         </s.Row>
 
-        <Confirm message="Cadastrar" disabled={!isPasswordValid || difPass} />
+        <s.ButtonGroup>
+          <Confirm message="Cadastrar" disabled={!isPasswordValid || difPass} />
+          <Back redirect="/" message="Voltar" />
+        </s.ButtonGroup>
       </form>
-    </s.SignIn>
+    </s.Content>
   );
 };
 

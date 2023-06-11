@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import SignIn from './pages/login/SignIn/SignIn';
 import SignUp from './pages/login/SignUp/SignUp';
 import LoginLayout from './pages/login/LoginLayout';
-// import ForgotPassword from './pages/login/ForgotPassword/ForgotPassword';
+import ForgotPassword from './pages/login/ForgotPassword/ForgotPassword';
 import PortalLayout from './pages/portal/PortalLayout';
 import Home from './pages/portal/Home/Home';
 import './global.css';
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'signUp',
         element: <SignUp />,
+      },
+      {
+        path: 'forgotPassword',
+        element: <ForgotPassword />,
       },
     ],
   },

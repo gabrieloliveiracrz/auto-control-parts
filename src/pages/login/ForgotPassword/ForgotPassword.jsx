@@ -1,6 +1,8 @@
 import React from 'react';
-// import * as s from '../style';
+import * as s from '../style';
 import { Envelope } from '@phosphor-icons/react';
+import Confirm from '../../../components/Confirm/Confirm';
+import Back from '../../../components/Back/Back';
 
 const ForgotPassword = () => {
   const onSubmit = (e) => {
@@ -11,10 +13,10 @@ const ForgotPassword = () => {
     <div>
       <s.Container>
         <form method="get" onSubmit={(e) => onSubmit(e)}>
-          <s.SignIn>
+          <s.Content>
             <s.Title>Esqueci a senha</s.Title>
             <s.InputGroup>
-              <s.iconWithInput className="iconWithInput">
+              <s.IconWithInput className="iconWithInput">
                 <Envelope size={30} className="icon" />
                 <s.Input
                   type="email"
@@ -22,17 +24,13 @@ const ForgotPassword = () => {
                   name="email"
                   placeholder="E-mail"
                 ></s.Input>
-              </s.iconWithInput>
+              </s.IconWithInput>
             </s.InputGroup>
-            <s.ForgotGroup>
-              <s.StyledLink to="/login">
-                <button className="back">Voltar</button>
-              </s.StyledLink>
-              <button type="submit" className="login">
-                Enviar
-              </button>
-            </s.ForgotGroup>
-          </s.SignIn>
+            <s.ButtonGroup>
+              <Confirm message="Enviar" />
+              <Back redirect="/" message="Voltar" />
+            </s.ButtonGroup>
+          </s.Content>
         </form>
       </s.Container>
     </div>
