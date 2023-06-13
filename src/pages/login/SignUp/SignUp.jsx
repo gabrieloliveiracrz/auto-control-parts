@@ -23,6 +23,7 @@ const SignUp = () => {
   const [type, setType] = useState('password');
   const [isValidLen, setIsValidLen] = useState(false);
   const [hasUppercase, setHasUppercase] = useState(false);
+  const [isValidUser, setIsValidUser] = useState(false);
   const [hasDigit, setHasDigit] = useState(false);
   const [hasSpecialChar, setHasSpecialChar] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
@@ -78,15 +79,18 @@ const SignUp = () => {
           if (statusCode === 200) {
             if (info.access === 'S') {
               handleInput(null, info);
+              setIsValidUser(true);
               toast.warning(
                 `Olá ${info.name}, você já possui acesso ao portal!`
               );
             } else {
               handleInput(null, info);
+              setIsValidUser(false);
             }
           } else {
             toast.error('Usuário não cadastrado no sistema!');
             handleInput(null, { name: '' });
+            setIsValidUser(true);
           }
         })
       : null;
@@ -248,7 +252,7 @@ const SignUp = () => {
         </s.Row>
 
         <s.ButtonGroup>
-          <Confirm message="Cadastrar" disabled={!isPasswordValid || difPass} />
+          <Confirm message="Cadastrar" disabled={!isPasswordValid || difPass || isValidUser} />
           <Back redirect="/" message="Voltar" />
         </s.ButtonGroup>
       </form>
