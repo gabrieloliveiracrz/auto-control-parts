@@ -5,6 +5,7 @@ import Confirm from '../../../components/Confirm/Confirm';
 import Back from '../../../components/Back/Back';
 import * as s from '../style';
 import api from '../../../services/api';
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const SignIn = () => {
           setLoggin(true);
         } else {
           setUser('');
-          console.log(user);
+          toast.error(response.data.message);
         }
       });
   };

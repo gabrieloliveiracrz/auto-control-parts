@@ -15,11 +15,9 @@ import api from '../../../services/api';
 import { toast } from 'react-toastify';
 
 const SignUp = () => {
-  const navigate = useNavigate();
   const [form, setForm] = useState({});
   const [difPass, setDifPass] = useState(false);
   const [iconPass, setIconPass] = useState(true);
-  const [iconConfirm, setIconConfirm] = useState(true);
   const [password, setPassword] = useState('');
   const [type, setType] = useState('password');
   const [isValidLen, setIsValidLen] = useState(false);
@@ -78,13 +76,11 @@ const SignUp = () => {
           if (statusCode === 200) {
             if (info.access === 'S') {
               handleInput(null, info);
-              setIsDisabled(true);
               toast.warning(
                 `Olá ${info.name}, você já possui acesso ao portal!`
               );
             } else {
               handleInput(null, info);
-              setIsDisabled(false);
             }
           } else {
             toast.error('Usuário não cadastrado no sistema!');
@@ -96,10 +92,8 @@ const SignUp = () => {
   const verifyEqualPassword = (e) => {
     if (form.password === e.target.value) {
       setDifPass(false);
-      setIsDisabled(false);
     } else {
       setDifPass(true);
-      setIsDisabled(true);
     }
   };
 
@@ -110,16 +104,6 @@ const SignUp = () => {
     } else {
       setIconPass(true);
       setType('password');
-    }
-  };
-
-  const changeEyeConfirm = (e) => {
-    if (iconConfirm === true) {
-      setIconConfirm(false);
-      setConfirmPass('text');
-    } else {
-      setIconConfirm(true);
-      setConfirmPass('password');
     }
   };
 

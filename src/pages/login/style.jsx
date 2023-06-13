@@ -79,15 +79,16 @@ export const IconWithInput = styled.div`
   padding: 1rem;
   min-width: 400px;
   gap: 0.75rem;
+  align-items: center;
 
-  &:has(input:focus) {
-    -webkit-box-shadow: 0px 0px 8px 1px rgba(110, 110, 110, 0.5);
-    -moz-box-shadow: 0px 0px 8px 1px rgba(110, 110, 110, 0.5);
+  &:focus-within {
     box-shadow: 0px 0px 8px 1px rgba(110, 110, 110, 0.5);
     transition: 300ms;
   }
 
   & .icon {
+    display: flex;
+    justify-content: end;
     color: #f2f2f2;
   }
 
@@ -107,8 +108,8 @@ export const IconWithInput = styled.div`
 `;
 
 export const Input = styled.input`
+  flex-grow: 1;
   border: none;
-  width: 18rem;
   background-color: #0e0e0e;
   outline: none;
   color: #f2f2f2;
