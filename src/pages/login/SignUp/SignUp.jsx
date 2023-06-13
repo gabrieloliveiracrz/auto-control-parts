@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  CloudSlash,
   Eye,
   EyeSlash,
   IdentificationCard,
@@ -25,6 +26,7 @@ const SignUp = () => {
   const [hasDigit, setHasDigit] = useState(false);
   const [hasSpecialChar, setHasSpecialChar] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [capsActiveField, setCapsActiveField] = useState(null);
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
@@ -84,6 +86,7 @@ const SignUp = () => {
             }
           } else {
             toast.error('Usuário não cadastrado no sistema!');
+            handleInput(null, { name: '' });
           }
         })
       : null;
@@ -104,6 +107,16 @@ const SignUp = () => {
     } else {
       setIconPass(true);
       setType('password');
+    }
+  };
+
+  const capsLock = (e, fieldName) => {
+    const isPasswordField = fieldName === 'pass' || fieldName === 'conf';
+
+    if (e.getModifierState('CapsLock')) {
+      setCapsActiveField(fieldName);
+    } else if (capsActiveField === fieldName) {
+      setCapsActiveField(null);
     }
   };
 
@@ -128,7 +141,7 @@ const SignUp = () => {
               required
             ></s.Input>
           </s.IconWithInput>
-          
+
           <s.IconWithInput className="IconWithInput name">
             <User size={30} className="icon" />
             <s.Input
@@ -156,6 +169,7 @@ const SignUp = () => {
                   handleInput(e);
                 }}
                 onInput={(e) => handlePasswordChange(e)}
+                onKeyDown={(e) => capsLock(e, 'pass')}
                 required
               ></s.Input>
               {iconPass === true ? (
@@ -173,6 +187,12 @@ const SignUp = () => {
                 />
               )}
             </s.IconWithInput>
+            {capsActiveField === 'pass' && (
+              <s.WarningSpan>
+                <WarningCircle size={30} />
+                CapsLock Ativado!
+              </s.WarningSpan>
+            )}
             {isFormFilled && !isValidLen && (
               <s.WarningSpan>
                 <WarningCircle size={30} className="warning" />
@@ -208,10 +228,16 @@ const SignUp = () => {
                 name="confirmPass"
                 placeholder="Confirmar senha"
                 onInput={(e) => verifyEqualPassword(e)}
+                onKeyDown={(e) => capsLock(e, 'conf')}
                 required
               ></s.Input>
             </s.IconWithInput>
-
+            {capsActiveField === 'conf' &&  (
+              <s.WarningSpan>
+                <WarningCircle size={30} />
+                CapsLock Ativado!
+              </s.WarningSpan>
+            )}
             {difPass ? (
               <s.WarningSpan>
                 <WarningCircle size={30} className="warning" />

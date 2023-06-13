@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { EyeSlash, Eye, Key, User, WarningCircle } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
 import Confirm from '../../../components/Confirm/Confirm';
-import Back from '../../../components/Back/Back';
 import * as s from '../style';
 import api from '../../../services/api';
 import { toast } from 'react-toastify';
