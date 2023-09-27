@@ -5,7 +5,7 @@ import SignUp from './pages/login/SignUp/SignUp';
 import LoginLayout from './pages/login/LoginLayout';
 import ForgotPassword from './pages/login/ForgotPassword/ForgotPassword';
 import PortalLayout from './pages/portal/PortalLayout';
-import Home from './pages/portal/Home/Home';
+import Control from './pages/portal/Control/Control';
 import './global.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />,
+        element: <Control />,
       },
     ],
   },

@@ -4,14 +4,40 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px;
-  background-color: #0d0d0d;
+  padding: 1rem;
+  background-color: #121212;
+  margin-bottom: 2rem;
 `;
 
-export const Span = styled.span`
-  color: #f2f2f2;
+export const Pages = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+`;
+
+export const Page = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: var(--font-semibold);
-  font-size: 1.8rem;
+  font-size: 1.2rem;
+  border-right: 1px solid #f2f2f2;
+  color: #f2f2f2;
+  width: 12rem;
+
+  span{
+    cursor: pointer;
+
+    &.visited{
+      color: #00b4d8;
+      border-bottom: 3px solid #00b4d8;
+      transition: 100ms;
+    }
+  }
+
+  &:last-child {
+    border: none;
+  }
 `;
 
 export const UserIcon = styled.div`
@@ -25,6 +51,3 @@ export const UserIcon = styled.div`
   cursor: pointer;
 `;
 
-export const Footer = styled.footer`
-  display: flex;
-`;
