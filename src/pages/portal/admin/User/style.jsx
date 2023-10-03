@@ -11,8 +11,8 @@ export const Container = styled.div`
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #4A545C;
-  border: 1px solid #6e6e6e;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid #f2f2f2;
   width: 36rem;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -70,7 +70,7 @@ export const Action = styled.div`
     padding: 0.6rem 2rem;
     border: none;
     border-radius:8px;
-    background-color: #83A4A4;
+    background-color: rgba(0, 0, 0, 0.6);
     color: #f2f2f2;
     font-weight: 600;
     font-size: 1.2rem;
@@ -78,7 +78,8 @@ export const Action = styled.div`
   }
 
   button:hover{
-    background-color: #657B81;
+    background-color: rgba(0, 0, 0, 0.04);
+    border: 1px solid #f2f2f2;
     transition: 100ms;
   }
 `
@@ -86,27 +87,27 @@ export const Action = styled.div`
 export const Parts = styled.div`
   display: flex;
 
-  table{
-    text-align: center;
-    padding: 0.2rem;
-    flex: 1;
-    border: 1px solid #6e6e6e;
-    background-color: #eee7e7;
+table{
+  text-align: center;
+  padding: 0.2rem;
+  flex: 1;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.12);
 
-    th,
-    td {
-    border: 1px solid #ccc; /* Adapte a espessura e a cor da borda conforme necessário */
-    padding: 8px;
-    text-align: left;
+  th,
+  td {
+  border: 1px solid #ccc; /* Adapte a espessura e a cor da borda conforme necessário */
+  padding: 8px;
+  text-align: left;
+}
+
+
+  th{
+    color: #f2f2f2;
   }
 
-
-    th{
-      color: #00b4d8;
-    }
-
-    td{
-      color: #121212;
-    }
+  td{
+    color: #f2f2f2;
   }
+}
 `

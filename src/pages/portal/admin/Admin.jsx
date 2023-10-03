@@ -14,8 +14,8 @@ const Admin = () => {
     <s.Container>
       <s.Card>
         <s.Pages>
-          <s.Page><span onClick={() => handlePageClick('Users')} className={activePage === 'Users' ? 'visited' : ''}>Cadastro de Peças</span></s.Page>
-          <s.Page><span onClick={() => handlePageClick('Parts')} className={activePage === 'Parts' ? 'visited' : ''}>Liberação de usuários</span></s.Page>
+          <s.Page><span onClick={() => handlePageClick('Users')} className={activePage === 'Users' ? 'visited' : ''}>Liberação de usuários</span></s.Page>
+          <s.Page><span onClick={() => handlePageClick('Parts')} className={activePage === 'Parts' ? 'visited' : ''}>Cadastro de Peças</span></s.Page>
         </s.Pages>
 
         {activePage === 'Users' && (<User />)}
