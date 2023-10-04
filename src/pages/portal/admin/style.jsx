@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Student } from '@phosphor-icons/react';
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  flex: 1;
+
+  @media (max-width: 768px) {
+    justify-content: space-between;
+  }
 `
 
 export const Card = styled.div`

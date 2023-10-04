@@ -6,18 +6,20 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex: 1;
+  max-width: 1000px; /* ou outro valor adequado */
+  margin: 0 auto; /* centraliza horizontalmente */
 `
+
 
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.12);
+  padding: 1rem;
   border: 1px solid #f2f2f2;
-  width: 36rem;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  max-width: 800px;
+  border-radius: 10px;
 `;
-
 
 export const Title = styled.div`
   display: flex;
@@ -53,7 +55,7 @@ export const FormControl = styled.div`
     color: #f2f2f2;
   }
 
-  input, select{
+  input{
     padding: 0.4rem;
     background-color: #f2f2f2;
     border: none;
@@ -72,6 +74,7 @@ export const Action = styled.div`
     border: none;
     border-radius:8px;
     background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.6);
     color: #f2f2f2;
     font-weight: 600;
     font-size: 1.2rem;
@@ -80,7 +83,7 @@ export const Action = styled.div`
 
   button:hover{
     background-color: rgba(0, 0, 0, 0.04);
-    border: .5px solid #f2f2f2;
+    border: 1px solid #f2f2f2;
     transition: 100ms;
   }
 `
@@ -88,27 +91,37 @@ export const Action = styled.div`
 export const Parts = styled.div`
   display: flex;
 
-table{
-  text-align: center;
-  padding: 0.2rem;
-  flex: 1;
-  border-collapse: collapse;
-  background-color: rgba(255, 255, 255, 0.12);
+  table{
+    padding: 0.2rem;
+    flex: 1;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.12);
 
-  th,
-  td {
-  border: 1px solid #ccc; /* Adapte a espessura e a cor da borda conforme necessário */
-  padding: 8px;
-  text-align: left;
-}
-
-
-  th{
-    color: #f2f2f2;
+    th,
+    td {
+    border: 1px solid #ccc; /* Adapte a espessura e a cor da borda conforme necessário */
+    padding: 8px;
+    text-align: center;
   }
 
-  td{
-    color: #f2f2f2;
+
+    th{
+      color: #f2f2f2;
+    }
+
+    td{
+      color: #f2f2f2;
+    }
+
+    .key{
+      color: #00b4d8;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+
+      &:hover{
+        color: #008CB9;
+      }
+    }
   }
-}
 `

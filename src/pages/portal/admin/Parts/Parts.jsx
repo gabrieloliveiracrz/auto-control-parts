@@ -2,7 +2,7 @@ import React from 'react';
 import * as s from './style';
 import { useState } from 'react';
 
-const Control = () => {
+const Parts = () => {
   const [selecao, setSelecao] = useState('');
 
   // Função para lidar com a mudança de seleção
@@ -49,7 +49,7 @@ const Control = () => {
             <tbody>
               {data.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.prefix}</td>
+                  <td className='key'>{item.prefix}</td>
                   <td>{item.model}</td>
                 </tr>
               ))}
@@ -61,4 +61,4 @@ const Control = () => {
   );
 };
 
-export default Control;
+export default Parts;

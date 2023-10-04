@@ -3,10 +3,11 @@ import * as s from './style';
 
 const Control = () => {
   const data = [
-    { serie: 1, model: 'Item 1', situation: 'Aprovado', inspector: 'Gabriel de Oliveira Ferreira' },
-    { serie: 2, model: 'Item 2', situation: 'Aprovado', inspector: 'Gabriel de Oliveira Ferreira' },
-    { serie: 3, model: 'Item 3', situation: 'Recusado', inspector: 'Gabriel de Oliveira Ferreira' },
+    { serie: 'QU123', model: 'Item 1', situation: 'Aprovado', img: 'QU123', inspector: 'Gabriel de Oliveira Ferreira' },
+    { serie: 'TR342', model: 'Item 2', situation: 'Aprovado', img: 'TR342', inspector: 'Gabriel de Oliveira Ferreira' },
+    { serie: 'CI534', model: 'Item 3', situation: 'Recusado', img: 'CI534', inspector: 'Gabriel de Oliveira Ferreira' },
   ];
+
   return (
     <s.Container>
       <s.Card>
@@ -77,15 +78,17 @@ const Control = () => {
                 <th>N° Serie</th>
                 <th>Modelo</th>
                 <th>Situação</th>
+                <th>Foto</th>
                 <th>Inspetor</th>
               </tr>
             </thead>
             <tbody>
               {data.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.serie}</td>
+                  <td className='key'>{item.serie}</td>
                   <td>{item.model}</td>
                   <td>{item.situation}</td>
+                  <td>{item.img}</td>
                   <td>{item.inspector}</td>
                 </tr>
               ))}

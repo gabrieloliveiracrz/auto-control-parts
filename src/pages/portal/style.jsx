@@ -8,6 +8,7 @@ export const Header = styled.header`
   background-color: #121212;
   margin-bottom: 2rem;
   border-bottom: 1px solid #f2f2f2;
+  flex: 1;
 `;
 
 export const Pages = styled.div`
