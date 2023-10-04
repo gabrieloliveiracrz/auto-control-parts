@@ -115,6 +115,7 @@ export const Parts = styled.div`
 
     th{
       color: #f2f2f2;
+      font-weight: 600;
     }
 
     td{
