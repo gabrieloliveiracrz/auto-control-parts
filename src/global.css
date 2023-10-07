@@ -6,6 +6,10 @@
   --font-bold: 700;
   --font-extra-bold: 800;
   --font-black: 900;
+  --primary: #121212;
+	--dark: #121212;
+	--secundary: #00b4d8;
+	--light: #fff;
 }
 
 * {

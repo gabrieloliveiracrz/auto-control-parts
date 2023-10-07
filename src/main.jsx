@@ -4,7 +4,7 @@ import SignIn from './pages/login/SignIn/SignIn';
 import SignUp from './pages/login/SignUp/SignUp';
 import LoginLayout from './pages/login/LoginLayout';
 import ForgotPassword from './pages/login/ForgotPassword/ForgotPassword';
-import PortalLayout from './pages/portal/PortalLayout';
+import Portal from './pages/portal/Portal';
 import Control from './pages/portal/Control/Control';
 import './global.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <PortalLayout />,
+    element: <Portal />,
     children: [
       {
         path: '/',
