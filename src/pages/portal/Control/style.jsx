@@ -5,6 +5,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
+  overflow-y: auto;
 
   @media (max-width: 768px) {
     flex: 1;
@@ -19,11 +20,9 @@ export const Card = styled.div`
   padding: 1rem;
   border: 1px solid #f2f2f2;
   max-width: 600px;
-  max-height: 600px;
   border-radius: 10px;
 
   @media (max-width: 768px) {
-    max-height: 100%;
     padding: 0;
     border-radius: 0px;
     flex: 1;

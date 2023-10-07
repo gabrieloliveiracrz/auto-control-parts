@@ -6,8 +6,13 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex: 1;
-  max-width: 1000px; /* ou outro valor adequado */
-  margin: 0 auto; /* centraliza horizontalmente */
+  overflow-y: auto;
+
+  @media (max-width: 768px) {
+    padding: 0;
+    border-radius: 0px;
+    flex: 1;
+  }
 `
 
 
@@ -17,8 +22,14 @@ export const Card = styled.div`
   background-color: rgba(255, 255, 255, 0.12);
   padding: 1rem;
   border: 1px solid #f2f2f2;
-  max-width: 800px;
+  flex: 1;
   border-radius: 10px;
+
+  @media (max-width: 768px) {
+    padding: 0;
+    border-radius: 0px;
+    flex: 1;
+  }
 `;
 
 export const Title = styled.div`

@@ -5,68 +5,61 @@ import { List, SignOut, User } from '@phosphor-icons/react';
 import Control from './Control/Control';
 import Dashboard from './dashboard/Dashboard';
 import Admin from './admin/Admin';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import SideNavBar from '../../components/SideNavBar/SideNavBar';
-import { Container } from './Control/style';
-
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Portal = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
-  const [isMobile, setIsMobile] = useState(false);
   const [activePage, setActivePage] = useState('Control');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!user) {
       navigate('/login/signin');
     }
-
-    checkScreenSize();
-
-    window.addEventListener('resize', checkScreenSize);
-
-    return () => {
-      window.removeEventListener('resize', checkScreenSize);
-    };
-  }, []);
-  
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  }, [user]);
 
   const MessageLogout = () => {
     confirmAlert({
       customUI: ({ onClose }) => (
-        <s.CustomAlert>
-          <h1>Encerrar sessão</h1>
-          <p>Deseja realmente sair da sessão agora?</p>
-          <button onClick={() => { logout(); onClose(); }}>Sim</button>
-          <button onClick={onClose}>Não</button>
-        </s.CustomAlert>
+    	<s.CustomAlert>
+    	  <h1>Encerrar sessão</h1>
+    	  <p>Deseja realmente sair da sessão agora?</p>
+    	  <button onClick={() => { logout(); onClose(); }}>Sim</button>
+    	  <button onClick={onClose}>Não</button>
+    	</s.CustomAlert>
       ),
     });
+    // confirmAlert({
+    //   title: 'Encerrar sessão',
+    //   message: 'Deseja realmente sair da sessão agora?',
+    //   buttons: [
+    //     {
+    //       label: 'Sim',
+    //       onClick: () => logout()
+    //     },
+    //     {
+    //       label: 'Não',
+    //     }
+    //   ]
+    // });
   };
 
   function logout() {
     localStorage.removeItem('user');
     navigate('/login/signIn');
-    
+
   }
 
-  const checkScreenSize = () => {
-    setIsMobile(window.innerWidth <= 768);
-  };
 
   const handlePageClick = (pageName) => {
     setActivePage(pageName);
-    setIsSidebarOpen(false); // Feche o sidebar quando uma opção for clicada
   };
 
   return (
     <s.Container>
-      <SideNavBar/>
+      <SideNavBar MessageLogout={MessageLogout} activePage={handlePageClick} />
 
       {activePage === 'Control' && (<Control />)}
       {activePage === 'Dashboard' && (<Dashboard />)}

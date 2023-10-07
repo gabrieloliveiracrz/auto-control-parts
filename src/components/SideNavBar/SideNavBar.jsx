@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import "./SideNavBar.css";
 import { Clipboard, Gear, List, Monitor, SignOut, User, UserPlus } from '@phosphor-icons/react';
+import styled from 'styled-components';
 
-const SideNavBar = () => {
+const SideNavBar = ({ activePage, MessageLogout }) => {
 	const [isExpanded, setExpendState] = useState(false);
-	
+
+	const handleItemClick = (pageName) => {
+		activePage(pageName);
+	};
+
 	return (
 		<div
 			className={
@@ -31,15 +36,15 @@ const SideNavBar = () => {
 					</button>
 				</div>
 				<div className="nav-menu">
-					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} href="#">
-						<Monitor className="menu-item-icon" size={32} color="#FFF" weight="bold" />
-						{isExpanded && <p>Dashboard</p>}
-					</a>
-					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} href="#">
+					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} onClick={() => handleItemClick('Control')}>
 						<Gear className="menu-item-icon" size={32} color="#FFF" weight="bold" />
 						{isExpanded && <p>Controle de Peças</p>}
 					</a>
-					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"}href="#">
+					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} onClick={() => handleItemClick('Dashboard')}>
+						<Monitor className="menu-item-icon" size={32} color="#FFF" weight="bold" />
+						{isExpanded && <p>Dashboard</p>}
+					</a>
+					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} onClick={() => handleItemClick('Admin')}>
 						<UserPlus className="menu-item-icon" size={32} color="#FFF" weight="bold" />
 						{isExpanded && <p>Painel Admin</p>}
 					</a>
@@ -55,7 +60,7 @@ const SideNavBar = () => {
 						</div>
 					</div>
 				)}
-				<SignOut className="logout-icon" size={32} color="#FFF" weight="bold" />
+				<SignOut className="logout-icon" size={32} color="#FFF" weight="bold" onClick={MessageLogout} />
 			</div>
 		</div>
 	);

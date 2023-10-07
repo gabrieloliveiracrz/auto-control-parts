@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex: 1;
+  overflow-y: auto;
 
   @media (max-width: 768px) {
     justify-content: space-between;
@@ -10,24 +13,38 @@ export const Container = styled.div`
 `
 
 export const Card = styled.div`
-  display: flex;
+   display: flex;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.12);
-  padding: 2rem;
-  border: 1px solid #6e6e6e;
-  gap: 2rem;
-  width: 36rem;
+  padding: 1rem;
+  border: 1px solid #f2f2f2;
+  max-width: 600px;
+  max-height: 600px;
   border-radius: 10px;
+
+  @media (max-width: 768px) {
+    max-height: 100%;
+    padding: 0;
+    border-radius: 0px;
+    flex: 1;
+  }
 `;
 
 export const Pages = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 1rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    flex: 1;
+  }
 `
 
 export const Page = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   color: #f2f2f2;
   font-size: 1.4rem;
   border-right: 1px solid #f2f2f2;
@@ -38,7 +55,6 @@ export const Page = styled.div`
 
     &.visited{
       color: #00b4d8;
-      border-bottom: 3px solid #00b4d8;
       transition: 100ms;
     }
   }

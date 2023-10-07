@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Student } from '@phosphor-icons/react';
 
 
 export const Container = styled.div`
@@ -22,6 +20,11 @@ export const Card = styled.div`
   border: 1px solid #f2f2f2;
   max-width: 600px;
   border-radius: 10px;
+
+  @media (max-width: 768px) {
+    padding: 0;
+    border-radius: 0;
+  }
 `;
 
 export const Title = styled.div`
