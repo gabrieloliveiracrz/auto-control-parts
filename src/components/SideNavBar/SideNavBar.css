@@ -64,6 +64,7 @@
 	color: var(--light);
 	text-decoration: none;
 	text-transform: uppercase;
+	cursor: pointer;
 }
 
 .menu-item-NX {
@@ -72,6 +73,14 @@
 
 .menu-item:hover {
 	color: var(--secundary);
+}
+
+.menu-item-icon:hover{
+	color: #00b4d8;
+}
+
+.visited {
+	color: #00b4d8;
 }
 
 .nav-footer {

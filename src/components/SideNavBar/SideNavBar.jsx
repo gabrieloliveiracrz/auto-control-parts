@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "./SideNavBar.css";
 import { Clipboard, Gear, List, Monitor, SignOut, User, UserPlus } from '@phosphor-icons/react';
-import styled from 'styled-components';
+import * as s from './style';
 
 const SideNavBar = ({ activePage, MessageLogout }) => {
 	const [isExpanded, setExpendState] = useState(false);
+	const [visited, setVisited] = useState('Control')
 
 	const handleItemClick = (pageName) => {
 		activePage(pageName);
+		setVisited(pageName);
 	};
 
 	return (
@@ -37,16 +39,16 @@ const SideNavBar = ({ activePage, MessageLogout }) => {
 				</div>
 				<div className="nav-menu">
 					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} onClick={() => handleItemClick('Control')}>
-						<Gear className="menu-item-icon" size={32} color="#FFF" weight="bold" />
-						{isExpanded && <p>Controle de Peças</p>}
+						<Gear className="menu-item-icon" size={32} color={visited === 'Control' ? '#00b4d8' : '#FFF'} weight="bold" />
+						{isExpanded && <p className={visited === 'Control' && 'visited'}>Controle de Peças</p>}
 					</a>
 					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} onClick={() => handleItemClick('Dashboard')}>
-						<Monitor className="menu-item-icon" size={32} color="#FFF" weight="bold" />
-						{isExpanded && <p>Dashboard</p>}
+						<Monitor className="menu-item-icon" size={32} color={visited === 'Dashboard' ? '#00b4d8' : '#FFF'} weight="bold" />
+						{isExpanded && <p className={visited === 'Dashboard' && 'visited'}>Dashboard</p>}
 					</a>
 					<a className={isExpanded ? "menu-item" : "menu-item menu-item-NX"} onClick={() => handleItemClick('Admin')}>
-						<UserPlus className="menu-item-icon" size={32} color="#FFF" weight="bold" />
-						{isExpanded && <p>Painel Admin</p>}
+						<UserPlus className="menu-item-icon" size={32} color={visited === 'Admin' ? '#00b4d8' : '#FFF'} weight="bold" />
+						{isExpanded && <p className={visited === 'Admin' && 'visited'}>Painel Admin</p>}
 					</a>
 				</div>
 			</div>
