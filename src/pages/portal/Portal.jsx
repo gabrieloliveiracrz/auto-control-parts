@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as s from './style';
-import { List, SignOut, User } from '@phosphor-icons/react';
 import Control from './Control/Control';
 import Dashboard from './dashboard/Dashboard';
 import Admin from './admin/Admin';
@@ -31,19 +30,6 @@ const Portal = () => {
     	</s.CustomAlert>
       ),
     });
-    // confirmAlert({
-    //   title: 'Encerrar sessão',
-    //   message: 'Deseja realmente sair da sessão agora?',
-    //   buttons: [
-    //     {
-    //       label: 'Sim',
-    //       onClick: () => logout()
-    //     },
-    //     {
-    //       label: 'Não',
-    //     }
-    //   ]
-    // });
   };
 
   function logout() {
