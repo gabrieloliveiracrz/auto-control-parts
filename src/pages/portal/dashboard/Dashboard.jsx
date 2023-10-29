@@ -24,10 +24,6 @@ const Dashboard = () => {
     { label: 'Triangulo 3', value: '25' },
   ]
 
-  useEffect(() => {
-    setData(test)
-  }, [data])
-
   const columnChartConfig = {
     type: 'column2d',
     dataFormat: 'json',

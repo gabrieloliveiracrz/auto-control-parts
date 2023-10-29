@@ -1,68 +1,100 @@
 import React, { useEffect, useState } from 'react'
 import * as s from './style'
+import api from '../../../services/api'
+import { toast } from 'react-toastify'
 
-const Control = () => {
+const Control = ({ user }) => {
   const [data, setData] = useState([])
-  const [info, setInfo] = useState({})
-  const test = [
-    {
-      serie: 'QU123',
-      model: 'Item 1',
-      situation: 'Aprovado',
-      inspector: 'Gabriel de Oliveira Ferreira',
-    },
-    {
-      serie: 'TR342',
-      model: 'Item 2',
-      situation: 'Aprovado',
-      inspector: 'Gabriel de Oliveira Ferreira',
-    },
-    {
-      serie: 'CI534',
-      model: 'Item 3',
-      situation: 'Recusado',
-      inspector: 'Gabriel de Oliveira Ferreira',
-    },
-  ]
+  const [form, setForm] = useState({
+    serie: '',
+    model: '',
+    situation: '',
+    date: '',
+    codeInspector: null,
+    inspector: null,
+    codeSupervisor: null,
+    supervisor: null,
+    finalCheck: null,
+  })
 
   useEffect(() => {
-    setData(test)
-  }, [])
+    console.log(form)
+  }, [form])
 
   // Busca todos os registros já cadastrados
-  // useEffect(() => {
-  //   api
-  //     .get('/')
-  //     .then((response) => {
-  //       setData(test)
-  //     })
-  //     .catch((err) => {
-  //       console.error(err)
-  //     })
-  // }, [])
+  useEffect(() => {
+    api
+      .get(`/parts/?role=${user.role}`)
+      .then(({ data: { info } }) => {
+        setData(info)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }, [])
 
-  const testGetinfo = {
-    date: '2023-10-21',
-    serie: 'QU123',
-    model: 'Item 1',
-    inspector: 'Gabriel de Oliveira Ferreira',
-    situation: 'No',
-    finalInspector: 'Admin',
-    finalCheck: 'Yes',
+  const handleRefreshData = () => {
+    api.get(`/parts/?role=${user.role}`).then(({ data: { info } }) => {
+      setData(info)
+    })
   }
 
   // Busca as informações do processo buscado
   const handleFindProcessInfo = (serie) => {
-    console.log(testGetinfo)
-    setData(response)
-    // api
-    //   .get(`/${serie}`)
-    //   .then((response) => {
-    //     setData(response)
-    //   })
-    //   .catch((err) => {
-    //     console.error(err)
-    //   })
+    api
+      .get(`/part/?serial_number=${serie}`)
+      .then(({ data: { info } }) => {
+        console.log(info)
+        setForm({
+          serie: info.serie,
+          model: info.model,
+          situation: info.situation,
+          date: info.date,
+          codeInspector:
+            info.codeInspector === null && user.role === 'Inspetor'
+              ? user.code
+              : info.codeInspector,
+          inspector:
+            info.inspector === null && user.role === 'Inspetor'
+              ? user.name
+              : info.inspector,
+          codeSupervisor:
+            info.codeSupervisor === null && user.role === 'Supervisor'
+              ? user.code
+              : info.codeSupervisor,
+          supervisor:
+            info.supervisor === null && user.role === 'Supervisor'
+              ? user.name
+              : info.supervisor,
+          finalCheck: info.finalCheck,
+        })
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    api
+      .put('/parts/validate', {
+        serie: form.serie,
+        model: form.model,
+        situation: form.situation,
+        date: form.date,
+        codeInspector: form.codeInspector,
+        inspector: form.inspector,
+        codeSupervisor: form.codeSupervisor,
+        supervisor: form.supervisor,
+        finalCheck: form.finalCheck,
+      })
+      .then(({ data: { message } }) => {
+        toast.success(message)
+        handleRefreshData()
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   return (
@@ -71,16 +103,16 @@ const Control = () => {
         <s.Title>
           <h3>Selecione uma das peças e faça a análise necessária</h3>
         </s.Title>
-        <form method="post">
+        <form method="post" onSubmit={(e) => handleSubmit(e)}>
           <s.Content>
             <s.Row>
               <s.FormControl>
                 <label htmlFor="date">Data de Inspeção</label>
                 <input
-                  type="date"
+                  type="text"
                   name="date"
                   id="date"
-                  value={info.date || ''}
+                  value={form.date || ''}
                   readOnly
                 />
               </s.FormControl>
@@ -90,7 +122,8 @@ const Control = () => {
                   type="text"
                   name="serie"
                   id="serie"
-                  value={info.serie || ''}
+                  value={form.serie || ''}
+                  readOnly
                 />
               </s.FormControl>
               <s.FormControl className="auto">
@@ -99,18 +132,30 @@ const Control = () => {
                   type="text"
                   name="model"
                   id="model"
-                  value={info.model || ''}
+                  value={form.model || ''}
+                  readOnly
                 />
               </s.FormControl>
             </s.Row>
             <s.Row>
+              <s.FormControl>
+                <label htmlFor="codeInspector">Matricula Inspetor</label>
+                <input
+                  type="text"
+                  name="codeInspector"
+                  id="codeInspector"
+                  value={form.codeInspector || ''}
+                  readOnly
+                />
+              </s.FormControl>
               <s.FormControl className="auto">
                 <label htmlFor="inspector">Nome do Aprovador</label>
                 <input
                   type="text"
                   name="inspector"
                   id="inspector"
-                  value={info.inspector}
+                  value={form.inspector || ''}
+                  readOnly
                 />
               </s.FormControl>
               <s.FormControl>
@@ -121,7 +166,13 @@ const Control = () => {
                     id="approved"
                     name="situation"
                     value="Yes"
-                    checked={info.situation === 'Yes'}
+                    checked={form.situation === 'S' && true}
+                    onClick={() =>
+                      setForm((prevData) => ({
+                        ...prevData,
+                        situation: 'S',
+                      }))
+                    }
                   />
                   <label htmlFor="approved">Aprovado</label>
                 </div>
@@ -131,49 +182,80 @@ const Control = () => {
                     id="rejected"
                     name="situation"
                     value="No"
-                    checked={info.situation === 'No'}
+                    checked={form.situation === 'N' && true}
+                    onClick={() =>
+                      setForm((prevData) => ({
+                        ...prevData,
+                        situation: 'N',
+                      }))
+                    }
                   />
                   <label htmlFor="rejected">Rejeitado</label>
                 </div>
               </s.FormControl>
             </s.Row>
 
-            <s.Row>
-              <s.FormControl className="auto">
-                <label htmlFor="finalInspector">Aprovador Final</label>
-                <input
-                  type="text"
-                  name="finalInspector"
-                  id="finalInspector"
-                  value={info.finalInspector}
-                />
-              </s.FormControl>
-              <s.FormControl>
-                <label htmlFor="finalSituation">Situação da Peça</label>
-                <div>
+            {user.role === 'Supervisor' && (
+              <s.Row>
+                <s.FormControl>
+                  <label htmlFor="codeSupervisor">Matricula Supervisor</label>
                   <input
-                    type="radio"
-                    id="finalSituation"
-                    name="finalSituation"
-                    value="Yes"
-                    checked={info.finalCheck === 'Yes'}
+                    type="text"
+                    name="codeSupervisor"
+                    id="codeSupervisor"
+                    value={form.codeSupervisor}
+                    readOnly
                   />
-                  <label htmlFor="approved">Aprovado</label>
-                </div>
-                <div>
+                </s.FormControl>
+                <s.FormControl className="auto">
+                  <label htmlFor="finalInspector">Aprovador Final</label>
                   <input
-                    type="radio"
-                    id="finalSituation"
-                    name="finalSituation"
-                    value="No"
-                    checked={info.finalCheck === 'No'}
+                    type="text"
+                    name="finalInspector"
+                    id="finalInspector"
+                    value={form.supervisor}
+                    readOnly
                   />
-                  <label htmlFor="rejected">Rejeitado</label>
-                </div>
-              </s.FormControl>
-            </s.Row>
+                </s.FormControl>
+                <s.FormControl>
+                  <label htmlFor="finalSituation">Situação da Peça</label>
+                  <div>
+                    <input
+                      type="radio"
+                      id="approved"
+                      name="finalSituation"
+                      value="Yes"
+                      checked={form.finalCheck === 'S' && true}
+                      onClick={() =>
+                        setForm((prevData) => ({
+                          ...prevData,
+                          finalCheck: 'S',
+                        }))
+                      }
+                    />
+                    <label htmlFor="approved">Aprovado</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      id="rejected"
+                      name="finalSituation"
+                      value="No"
+                      checked={form.finalCheck === 'N' && true}
+                      onClick={() =>
+                        setForm((prevData) => ({
+                          ...prevData,
+                          finalCheck: 'N',
+                        }))
+                      }
+                    />
+                    <label htmlFor="rejected">Rejeitado</label>
+                  </div>
+                </s.FormControl>
+              </s.Row>
+            )}
             <s.Action>
-              <button>Confirmar</button>
+              <button type="submit">Confirmar</button>
             </s.Action>
           </s.Content>
         </form>
@@ -185,7 +267,8 @@ const Control = () => {
                 <th>N° Serie</th>
                 <th>Modelo</th>
                 <th>Situação</th>
-                <th>Inspetor</th>
+                {user.role === 'Supervisor' && <th>Avaliação Inicial</th>}
+                <th>Data</th>
               </tr>
             </thead>
             <tbody>
@@ -193,13 +276,14 @@ const Control = () => {
                 <tr key={index}>
                   <td
                     className="key"
-                    onClick={() => handleFindProcessInfo(item.serie)}
+                    onClick={() => handleFindProcessInfo(item.serial_number)}
                   >
-                    {item.serie}
+                    {item.serial_number}
                   </td>
                   <td>{item.model}</td>
-                  <td>{item.situation}</td>
-                  <td>{item.inspector}</td>
+                  <td>{item.status === 'S' ? 'Aprovado' : 'Reprovado'}</td>
+                  {user.role === 'Supervisor' && <td>{item.inspector}</td>}
+                  <td>{item.datetime_verif}</td>
                 </tr>
               ))}
             </tbody>

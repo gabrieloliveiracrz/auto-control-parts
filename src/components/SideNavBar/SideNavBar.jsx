@@ -10,7 +10,7 @@ import {
 import React, { useState } from 'react'
 import './SideNavBar.css'
 
-const SideNavBar = ({ activePage, MessageLogout }) => {
+const SideNavBar = ({ activePage, MessageLogout, user }) => {
   const [isExpanded, setExpendState] = useState(false)
   const [visited, setVisited] = useState('Control')
 
@@ -80,20 +80,22 @@ const SideNavBar = ({ activePage, MessageLogout }) => {
               <p className={visited === 'Dashboard' && 'visited'}>Dashboard</p>
             )}
           </a>
-          <a
-            className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
-            onClick={() => handleItemClick('Admin')}
-          >
-            <UserPlus
-              className="menu-item-icon"
-              size={32}
-              color={visited === 'Admin' ? '#00b4d8' : '#FFF'}
-              weight="bold"
-            />
-            {isExpanded && (
-              <p className={visited === 'Admin' && 'visited'}>Painel Admin</p>
-            )}
-          </a>
+          {user.role === 'Supervisor' && (
+            <a
+              className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
+              onClick={() => handleItemClick('Admin')}
+            >
+              <UserPlus
+                className="menu-item-icon"
+                size={32}
+                color={visited === 'Admin' ? '#00b4d8' : '#FFF'}
+                weight="bold"
+              />
+              {isExpanded && (
+                <p className={visited === 'Admin' && 'visited'}>Painel Admin</p>
+              )}
+            </a>
+          )}
         </div>
       </div>
       <div className="nav-footer">
@@ -106,8 +108,8 @@ const SideNavBar = ({ activePage, MessageLogout }) => {
               weight="bold"
             />
             <div className="nav-footer-info">
-              <p className="nav-footer-user-name">Usuário</p>
-              <p className="nav-footer-user-position">Cargo</p>
+              <p className="nav-footer-user-name">{user.name}</p>
+              <p className="nav-footer-user-position">{user.role}</p>
             </div>
           </div>
         )}

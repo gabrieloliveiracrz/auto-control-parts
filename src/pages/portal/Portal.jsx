@@ -50,11 +50,15 @@ const Portal = () => {
 
   return (
     <s.Container>
-      <SideNavBar MessageLogout={MessageLogout} activePage={handlePageClick} />
+      <SideNavBar
+        MessageLogout={MessageLogout}
+        activePage={handlePageClick}
+        user={user}
+      />
 
-      {activePage === 'Control' && <Control />}
-      {activePage === 'Dashboard' && <Dashboard />}
-      {activePage === 'Admin' && <Admin />}
+      {activePage === 'Control' && <Control user={user} />}
+      {activePage === 'Dashboard' && <Dashboard user={user} />}
+      {activePage === 'Admin' && <Admin user={user} />}
     </s.Container>
   )
 }

@@ -5,19 +5,12 @@ import { toast } from 'react-toastify'
 import api from '../../../../services/api'
 
 const User = () => {
-  const [selecao, setSelecao] = useState('')
   const [data, setData] = useState([])
-  const [info, setInfo] = useState({})
   const [form, setForm] = useState({
     code: '',
     name: '',
     permission: '',
   })
-
-  // Função para lidar com a mudança de seleção
-  const handleSelectChange = (event) => {
-    setSelecao(event.target.value)
-  }
 
   // Faz a busca dos usuarios cadastrados ou aguardando
   useEffect(() => {
@@ -50,9 +43,13 @@ const User = () => {
       .put('/users/permission', form)
       .then(({ data: { message, statusCode } }) => {
         if (statusCode === 200) {
-          toast.message(message)
+          toast.success(message)
           handleRefreshData()
-          refre
+          setForm({
+            code: '',
+            name: '',
+            permission: 'Aguardando',
+          })
         } else {
           toast.warning(message)
         }

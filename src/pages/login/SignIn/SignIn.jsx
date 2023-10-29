@@ -80,6 +80,7 @@ const SignIn = () => {
             <s.Input
               type="text"
               className="username"
+              autoComplete="username"
               name="code"
               placeholder="Usuário"
               required
@@ -96,6 +97,7 @@ const SignIn = () => {
               id="password"
               name="password"
               placeholder="Senha"
+              autoComplete="current-password"
               required
               onChange={(e) => handleLogininputs(e)}
               onKeyDown={(e) => capsLock(e)}

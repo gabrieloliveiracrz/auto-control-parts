@@ -8,7 +8,6 @@ import api from '../../../../services/api'
 const Parts = () => {
   const [selecao, setSelecao] = useState('')
   const [data, setData] = useState([])
-  const [info, setInfo] = useState({})
   const [form, setForm] = useState({
     prefix: '',
     model: '',
@@ -38,6 +37,10 @@ const Parts = () => {
       .then(({ data: { message, statusCode } }) => {
         if (statusCode === 200) {
           handleRefreshData()
+          setForm({
+            prefix: '',
+            model: '',
+          })
           toast.success(message)
         } else {
           toast.error(message)
