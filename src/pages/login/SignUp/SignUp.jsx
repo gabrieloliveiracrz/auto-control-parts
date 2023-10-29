@@ -1,132 +1,131 @@
-import React, { useState } from 'react';
 import {
-  CloudSlash,
   Eye,
   EyeSlash,
   IdentificationCard,
   Key,
   User,
   WarningCircle,
-} from '@phosphor-icons/react';
-import { useNavigate } from 'react-router-dom';
-import Confirm from '../../../components/Confirm/Confirm';
-import Back from '../../../components/Back/Back';
-import * as s from '../style';
-import api from '../../../services/api';
-import { toast } from 'react-toastify';
+} from '@phosphor-icons/react'
+import React, { useState } from 'react'
+import { toast } from 'react-toastify'
+import Back from '../../../components/Back/Back'
+import Confirm from '../../../components/Confirm/Confirm'
+import api from '../../../services/api'
+import * as s from '../style'
 
 const SignUp = () => {
-  const [form, setForm] = useState({});
-  const [difPass, setDifPass] = useState(false);
-  const [iconPass, setIconPass] = useState(true);
-  const [password, setPassword] = useState('');
-  const [type, setType] = useState('password');
-  const [isValidLen, setIsValidLen] = useState(false);
-  const [hasUppercase, setHasUppercase] = useState(false);
-  const [isValidUser, setIsValidUser] = useState(false);
-  const [hasDigit, setHasDigit] = useState(false);
-  const [hasSpecialChar, setHasSpecialChar] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [capsActiveField, setCapsActiveField] = useState(null);
+  const [form, setForm] = useState({})
+  const [difPass, setDifPass] = useState(false)
+  const [iconPass, setIconPass] = useState(true)
+  const [password, setPassword] = useState('')
+  const [type, setType] = useState('password')
+  const [isValidLen, setIsValidLen] = useState(false)
+  const [hasUppercase, setHasUppercase] = useState(false)
+  const [isValidUser, setIsValidUser] = useState(false)
+  const [hasDigit, setHasDigit] = useState(false)
+  const [hasSpecialChar, setHasSpecialChar] = useState(false)
+  const [isPasswordValid, setIsPasswordValid] = useState(true)
+  const [capsActiveField, setCapsActiveField] = useState(null)
 
   const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
+    const newPassword = e.target.value
+    setPassword(newPassword)
 
-    const isValidPasswordLen = newPassword.length <= 32 && newPassword.length >= 8;
-    const hasUppercase = /[A-Z]/.test(newPassword);
-    const hasDigit = /\d/.test(newPassword);
-    const hasSpecialChar = /[!@#$%^&*]/.test(newPassword);
+    const isValidPasswordLen =
+      newPassword.length <= 32 && newPassword.length >= 8
+    const hasUppercase = /[A-Z]/.test(newPassword)
+    const hasDigit = /\d/.test(newPassword)
+    const hasSpecialChar = /[!@#$%^&*]/.test(newPassword)
 
-    setIsValidLen(isValidPasswordLen);
-    setHasUppercase(hasUppercase);
-    setHasDigit(hasDigit);
-    setHasSpecialChar(hasSpecialChar);
+    setIsValidLen(isValidPasswordLen)
+    setHasUppercase(hasUppercase)
+    setHasDigit(hasDigit)
+    setHasSpecialChar(hasSpecialChar)
 
-    const isPasswordValid = isValidPasswordLen && hasUppercase && hasDigit && hasSpecialChar;
-    setIsPasswordValid(isPasswordValid);
-  };
+    const isPasswordValid =
+      isValidPasswordLen && hasUppercase && hasDigit && hasSpecialChar
+    setIsPasswordValid(isPasswordValid)
+  }
 
-  const isFormFilled = password.trim() !== '';
+  const isFormFilled = password.trim() !== ''
 
   const handleInput = (e, data) => {
     if (e && e.target) {
       setForm({
         ...form,
         [e.target.name]: e.target.value,
-      });
+      })
     } else if (data) {
       setForm({
         ...form,
         code: data.code,
         name: data.name,
-      });
+      })
     }
-  };
+  }
 
   const verifyUserCode = (e) => {
-    e.target.value !== ''
-      ? api
+    e.target.value !== '' &&
+      api
         .get('users/verify-user-code', {
           params: {
             code: e.target.value,
           },
         })
         .then((response) => {
-          const { data } = response;
-          const { info, statusCode } = data;
+          const { data } = response
+          const { info, statusCode } = data
 
           if (statusCode === 200) {
             if (info.access === 'S') {
-              handleInput(null, info);
-              setIsValidUser(true);
+              handleInput(null, info)
+              setIsValidUser(true)
               toast.warning(
-                `Olá ${info.name}, você já possui acesso ao portal!`
-              );
+                `Olá ${info.name}, você já possui acesso ao portal!`,
+              )
             } else {
-              handleInput(null, info);
-              setIsValidUser(false);
+              handleInput(null, info)
+              setIsValidUser(false)
             }
           } else {
-            toast.error('Usuário não cadastrado no sistema!');
-            handleInput(null, { name: '' });
-            setIsValidUser(true);
+            toast.error('Usuário não cadastrado no sistema!')
+            handleInput(null, { name: '' })
+            setIsValidUser(true)
           }
         })
-      : null;
-  };
+  }
 
   const verifyEqualPassword = (e) => {
     if (form.password === e.target.value) {
-      setDifPass(false);
+      setDifPass(false)
     } else {
-      setDifPass(true);
+      setDifPass(true)
     }
-  };
+  }
 
   const changeEyePass = (e) => {
     if (iconPass === true) {
-      setIconPass(false);
-      setType('text');
+      setIconPass(false)
+      setType('text')
     } else {
-      setIconPass(true);
-      setType('password');
+      setIconPass(true)
+      setType('password')
     }
-  };
+  }
 
   const capsLock = (e, fieldName) => {
-    const isPasswordField = fieldName === 'pass' || fieldName === 'conf';
+    const isPasswordField = fieldName === 'pass' || fieldName === 'conf'
 
     if (e.getModifierState('CapsLock')) {
-      setCapsActiveField(fieldName);
+      setCapsActiveField(fieldName)
     } else if (capsActiveField === fieldName) {
-      setCapsActiveField(null);
+      setCapsActiveField(null)
     }
-  };
+  }
 
   const handleOnSubmit = (e) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   return (
     <s.Content>
@@ -170,7 +169,7 @@ const SignUp = () => {
                 name="password"
                 placeholder="Senha"
                 onBlur={(e) => {
-                  handleInput(e);
+                  handleInput(e)
                 }}
                 onInput={(e) => handlePasswordChange(e)}
                 onKeyDown={(e) => capsLock(e, 'pass')}
@@ -184,7 +183,6 @@ const SignUp = () => {
                 />
               ) : (
                 <EyeSlash
-
                   size={30}
                   className="icon eye"
                   onClick={(e) => changeEyePass(e)}
@@ -218,7 +216,9 @@ const SignUp = () => {
             {isFormFilled && !hasSpecialChar && (
               <s.WarningSpan>
                 <WarningCircle size={30} className="warning" />
-                <span>A senha deve conter pelo menos um caractere especial.</span>
+                <span>
+                  A senha deve conter pelo menos um caractere especial.
+                </span>
               </s.WarningSpan>
             )}
           </s.InputGroup>
@@ -236,7 +236,7 @@ const SignUp = () => {
                 required
               ></s.Input>
             </s.IconWithInput>
-            {capsActiveField === 'conf' &&  (
+            {capsActiveField === 'conf' && (
               <s.WarningSpan>
                 <WarningCircle size={30} />
                 CapsLock Ativado!
@@ -252,12 +252,15 @@ const SignUp = () => {
         </s.Row>
 
         <s.ButtonGroup>
-          <Confirm message="Cadastrar" disabled={!isPasswordValid || difPass || isValidUser} />
+          <Confirm
+            message="Cadastrar"
+            disabled={!isPasswordValid || difPass || isValidUser}
+          />
           <Back redirect="/" message="Voltar" />
         </s.ButtonGroup>
       </form>
     </s.Content>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

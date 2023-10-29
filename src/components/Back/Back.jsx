@@ -1,5 +1,5 @@
-import React from 'react';
-import * as s from './style';
+import React from 'react'
+import * as s from './style'
 
 const Back = (props) => {
   return (
@@ -8,8 +8,7 @@ const Back = (props) => {
         <button>{props.message}</button>
       </s.Back>
     </s.StyledLink>
+  )
+}
 
-  );
-};
-
-export default Back;
+export default Back

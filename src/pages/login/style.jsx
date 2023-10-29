@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import backgroundImage from '../../assets/fundo_meur_novo_de_novo.png';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import backgroundImage from '../../assets/fundo_meur_novo_de_novo.png'
 
 export const Cover = styled.div`
   background-image: url(${backgroundImage});
   background-size: cover;
-`;
+`
 
 export const Container = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ export const Container = styled.div`
     justify-content: center;
     width: 100%;
   }
-`;
+`
 
 export const Content = styled.div`
   display: flex;
@@ -40,14 +40,14 @@ export const Content = styled.div`
     flex-direction: column;
     gap: 1.5rem;
   }
-`;
+`
 
 export const Title = styled.h2`
   font-size: 3rem;
   font-weight: var(--font-bold);
   text-align: center;
   color: #f2f2f2;
-`;
+`
 
 export const Row = styled.div`
   display: flex;
@@ -62,14 +62,14 @@ export const Row = styled.div`
     /* Ajuste de estilo para telas menores */
     flex-direction: column;
   }
-`;
+`
 
 export const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   flex: 1;
-`;
+`
 
 export const IconWithInput = styled.div`
   display: flex;
@@ -105,7 +105,7 @@ export const IconWithInput = styled.div`
     /* Ajuste de estilo para telas menores */
     min-width: 150px;
   }
-`;
+`
 
 export const Input = styled.input`
   flex-grow: 1;
@@ -132,11 +132,11 @@ export const Input = styled.input`
     /* Ajuste de estilo para telas menores */
     width: 100%;
   }
-`;
+`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
-`;
+`
 
 export const Span = styled.span`
   color: #00b4d8;
@@ -147,23 +147,23 @@ export const Span = styled.span`
   &:hover {
     color: #008cb9;
   }
-`;
+`
 
 export const p = styled.p`
   color: #f2f2f2;
   font-weight: var(--font-light);
   font-size: 1rem;
-`;
+`
 
 export const NotAcess = styled.div`
   text-align: center;
-`;
+`
 
 export const ButtonGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-`;
+`
 
 export const WarningSpan = styled.span`
   display: flex;
@@ -188,4 +188,4 @@ export const WarningSpan = styled.span`
       transform: translateY(0);
     }
   }
-`;
+`

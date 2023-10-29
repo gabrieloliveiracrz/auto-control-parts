@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import { EyeSlash, Eye, Key, User, WarningCircle } from '@phosphor-icons/react';
-import { useNavigate } from 'react-router-dom';
-import Confirm from '../../../components/Confirm/Confirm';
-import * as s from '../style';
-import api from '../../../services/api';
-import { toast } from 'react-toastify';
+import { Eye, EyeSlash, Key, User, WarningCircle } from '@phosphor-icons/react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import Confirm from '../../../components/Confirm/Confirm'
+import api from '../../../services/api'
+import * as s from '../style'
 
 const SignIn = () => {
-  const navigate = useNavigate();
-  const [icon, setIcon] = useState(true);
-  const [type, setType] = useState('password');
-  const [form, setForm] = useState({});
-  const [user, setUser] = useState({});
-  const [loggin, setLoggin] = useState(false);
-  const [capsActive, setCapsActive] = useState(false);
+  const navigate = useNavigate()
+  const [icon, setIcon] = useState(true)
+  const [type, setType] = useState('password')
+  const [form, setForm] = useState({})
+  const [user, setUser] = useState({})
+  const [loggin, setLoggin] = useState(false)
+  const [capsActive, setCapsActive] = useState(false)
 
   const handleLogininputs = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (form.code === 'admin' && form.password === 'loginfalso123') {
-      localStorage.setItem('user', JSON.stringify(form));
-      navigate('/');
-    } else validateUser();
-  };
+      localStorage.setItem('user', JSON.stringify(form))
+      navigate('/')
+    } else validateUser()
+  }
 
   const validateUser = () => {
     api
@@ -38,37 +38,37 @@ const SignIn = () => {
       })
       .then((response) => {
         if (response.data.statusCode === 200) {
-          setUser(response.data.info);
-          setLoggin(true);
+          setUser(response.data.info)
+          setLoggin(true)
         } else {
-          setUser('');
-          toast.error(response.data.message);
+          setUser('')
+          toast.error(response.data.message)
         }
-      });
-  };
+      })
+  }
 
   if (loggin) {
-    localStorage.setItem('user', JSON.stringify(user));
-    navigate('/');
+    localStorage.setItem('user', JSON.stringify(user))
+    navigate('/')
   }
 
   const changeEye = (e) => {
     if (icon === true) {
-      setIcon(false);
-      setType('text');
+      setIcon(false)
+      setType('text')
     } else {
-      setIcon(true);
-      setType('password');
+      setIcon(true)
+      setType('password')
     }
-  };
+  }
 
   const capsLock = (e) => {
     if (e.getModifierState('CapsLock')) {
-      setCapsActive(true);
+      setCapsActive(true)
     } else {
-      setCapsActive(false);
+      setCapsActive(false)
     }
-  };
+  }
 
   return (
     <s.Content>
@@ -136,7 +136,7 @@ const SignIn = () => {
         </s.p>
       </s.NotAcess>
     </s.Content>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

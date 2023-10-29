@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Student } from '@phosphor-icons/react';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
@@ -11,8 +9,7 @@ export const Container = styled.div`
   @media (max-width: 768px) {
     flex: 1;
   }
-`;
-
+`
 
 export const Card = styled.div`
   display: flex;
@@ -29,7 +26,7 @@ export const Card = styled.div`
     flex: 1;
     max-width: 100%;
   }
-`;
+`
 
 export const Graph = styled.div`
   display: flex;
@@ -39,9 +36,7 @@ export const Graph = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
   }
-
-`;
-
+`
 
 export const Content = styled.div`
   display: flex;
@@ -55,7 +50,7 @@ export const Row = styled.div`
   gap: 1rem;
   justify-content: center;
 
-  & .auto{
+  & .auto {
     flex: 1;
   }
 
@@ -69,12 +64,12 @@ export const FormControl = styled.div`
   display: flex;
   flex-direction: column;
 
-  label{
+  label {
     padding: 1px 4px;
     color: #f2f2f2;
   }
 
-  input{
+  input {
     padding: 0.4rem;
     background-color: #f2f2f2;
     border: none;
@@ -88,10 +83,10 @@ export const Action = styled.div`
   align-items: flex-end;
   gap: 1rem;
 
-  button{
+  button {
     padding: 0.4rem 1.4rem;
     border: none;
-    border-radius:8px;
+    border-radius: 8px;
     background-color: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(0, 0, 0, 0.6);
     color: #f2f2f2;
@@ -100,7 +95,7 @@ export const Action = styled.div`
     cursor: pointer;
   }
 
-  button:hover{
+  button:hover {
     background-color: rgba(0, 0, 0, 0.04);
     border: 1px solid #f2f2f2;
     transition: 100ms;

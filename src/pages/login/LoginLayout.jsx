@@ -1,6 +1,6 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import * as s from './style';
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import * as s from './style'
 
 const LoginLayout = () => {
   return (
@@ -9,7 +9,7 @@ const LoginLayout = () => {
         <Outlet />
       </s.Container>
     </s.Cover>
-  );
-};
+  )
+}
 
-export default LoginLayout;
+export default LoginLayout

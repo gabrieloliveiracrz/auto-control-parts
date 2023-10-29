@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 export const Back = styled.div`
   display: flex;
@@ -28,10 +28,8 @@ export const Back = styled.div`
     transition: 300ms;
     cursor: not-allowed;
   }
-`;
+`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
-`;
-
-
+`

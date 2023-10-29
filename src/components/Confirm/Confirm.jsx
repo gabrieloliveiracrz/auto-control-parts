@@ -1,5 +1,5 @@
-import React from 'react';
-import * as s from './style';
+import React from 'react'
+import * as s from './style'
 
 const Confirm = (props) => {
   return (
@@ -8,7 +8,7 @@ const Confirm = (props) => {
         {props.message}
       </button>
     </s.Confirm>
-  );
-};
+  )
+}
 
-export default Confirm;
+export default Confirm

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ export const Container = styled.div`
 `
 
 export const Card = styled.div`
-   display: flex;
+  display: flex;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.12);
   padding: 1rem;
@@ -28,7 +28,7 @@ export const Card = styled.div`
     border-radius: 0px;
     flex: 1;
   }
-`;
+`
 
 export const Pages = styled.div`
   display: flex;
@@ -50,10 +50,10 @@ export const Page = styled.div`
   border-right: 1px solid #f2f2f2;
   flex: 1;
 
-  span{
+  span {
     cursor: pointer;
 
-    &.visited{
+    &.visited {
       color: #00b4d8;
       transition: 100ms;
     }
@@ -74,7 +74,7 @@ export const Row = styled.div`
   display: flex;
   gap: 1rem;
 
-  & .auto{
+  & .auto {
     flex: 1;
   }
 `
@@ -83,12 +83,12 @@ export const FormControl = styled.div`
   display: flex;
   flex-direction: column;
 
-  label{
+  label {
     padding: 1px 4px;
     color: #f2f2f2;
   }
 
-  input{
+  input {
     padding: 0.4rem;
     background-color: #f2f2f2;
     border: none;
@@ -102,10 +102,10 @@ export const Action = styled.div`
   justify-content: flex-end;
   gap: 1rem;
 
-  button{
+  button {
     padding: 0.6rem 2rem;
     border: none;
-    border-radius:8px;
+    border-radius: 8px;
     cursor: pointer;
   }
 `

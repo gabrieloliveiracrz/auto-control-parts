@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
@@ -10,8 +10,7 @@ export const Container = styled.div`
   @media (max-width: 768px) {
     flex: 1;
   }
-`;
-
+`
 
 export const Card = styled.div`
   display: flex;
@@ -27,7 +26,7 @@ export const Card = styled.div`
     border-radius: 0px;
     flex: 1;
   }
-`;
+`
 
 export const Title = styled.div`
   display: flex;
@@ -49,7 +48,7 @@ export const Row = styled.div`
   display: flex;
   gap: 1rem;
 
-  & .auto{
+  & .auto {
     flex: 1;
   }
 
@@ -63,12 +62,12 @@ export const FormControl = styled.div`
   display: flex;
   flex-direction: column;
 
-  label{
+  label {
     padding: 1px 4px;
     color: #f2f2f2;
   }
 
-  input{
+  input {
     padding: 0.4rem;
     background-color: #f2f2f2;
     border: none;
@@ -82,10 +81,10 @@ export const Action = styled.div`
   justify-content: flex-end;
   gap: 1rem;
 
-  button{
+  button {
     padding: 0.6rem 2rem;
     border: none;
-    border-radius:8px;
+    border-radius: 8px;
     background-color: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(0, 0, 0, 0.6);
     color: #f2f2f2;
@@ -94,7 +93,7 @@ export const Action = styled.div`
     cursor: pointer;
   }
 
-  button:hover{
+  button:hover {
     background-color: rgba(0, 0, 0, 0.04);
     border: 1px solid #f2f2f2;
     transition: 100ms;
@@ -104,7 +103,7 @@ export const Action = styled.div`
 export const Parts = styled.div`
   display: flex;
 
-  table{
+  table {
     padding: 0.2rem;
     flex: 1;
     border-collapse: collapse;
@@ -113,29 +112,28 @@ export const Parts = styled.div`
 
     th,
     td {
-    border: 1px solid #ccc; /* Adapte a espessura e a cor da borda conforme necessário */
-    padding: 8px;
-    text-align: center;
-  }
+      border: 1px solid #ccc; /* Adapte a espessura e a cor da borda conforme necessário */
+      padding: 8px;
+      text-align: center;
+    }
 
-
-    th{
+    th {
       color: #f2f2f2;
       font-weight: 600;
     }
 
-    td{
+    td {
       color: #f2f2f2;
     }
 
-    .key{
+    .key {
       color: #00b4d8;
       text-decoration: underline;
       cursor: pointer;
       font-weight: 600;
 
-      &:hover{
-        color: #008CB9;
+      &:hover {
+        color: #008cb9;
       }
     }
   }

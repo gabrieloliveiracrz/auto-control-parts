@@ -1,36 +1,34 @@
-import React, { useEffect } from 'react';
-import * as s from './style';
-import { useState } from 'react';
-import api from '../../../../services/api';
-import { X } from '@phosphor-icons/react';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react'
+import * as s from './style'
+
+import { X } from '@phosphor-icons/react'
+import { toast } from 'react-toastify'
+import api from '../../../../services/api'
 
 const Parts = () => {
-  const [selecao, setSelecao] = useState('');
+  const [selecao, setSelecao] = useState('')
   const [data, setData] = useState([])
   const [info, setInfo] = useState({})
   const [form, setForm] = useState({
     prefix: '',
-    model: ''
+    model: '',
   })
 
   // Função para lidar com a mudança de seleção
   const handleSelectChange = (event) => {
-    setSelecao(event.target.value);
-  };
+    setSelecao(event.target.value)
+  }
 
   useEffect(() => {
-    api.get('/model-parts')
-      .then(({ data: { info } }) => {
-        setData(info)
-      })
+    api.get('/model-parts').then(({ data: { info } }) => {
+      setData(info)
+    })
   }, [])
 
   const handleRefreshData = () => {
-    api.get('/model-parts')
-      .then(({ data: { info } }) => {
-        setData(info)
-      })
+    api.get('/model-parts').then(({ data: { info } }) => {
+      setData(info)
+    })
   }
 
   const handleSubmit = (e) => {
@@ -51,7 +49,8 @@ const Parts = () => {
   }
 
   const handleDeleteParts = (prefix) => {
-    api.delete(`/delete-model/?prefix=${prefix}`)
+    api
+      .delete(`/delete-model/?prefix=${prefix}`)
       .then(({ data: { message } }) => {
         toast.success(message)
         handleRefreshData()
@@ -61,11 +60,9 @@ const Parts = () => {
       })
   }
 
-
   return (
     <s.Container>
       <s.Card>
-
         <form onSubmit={(e) => handleSubmit(e)} method="post">
           <s.Content>
             <s.Row>
@@ -73,20 +70,31 @@ const Parts = () => {
                 <label htmlFor="prefix">Prefixo</label>
                 <input
                   type="text"
-                  name='prefix'
-                  id='prefix'
-                  onChange={(e) => setForm((prevData) => ({ ...prevData, prefix: e.target.value }))}
+                  name="prefix"
+                  id="prefix"
+                  onChange={(e) =>
+                    setForm((prevData) => ({
+                      ...prevData,
+                      prefix: e.target.value,
+                    }))
+                  }
                   value={form.prefix || ''}
                   required
                   maxLength={2}
                 />
               </s.FormControl>
-              <s.FormControl className='auto'>
+              <s.FormControl className="auto">
                 <label htmlFor="model">Modelo</label>
-                <input type="text"
-                  name='model'
-                  id='model'
-                  onChange={(e) => setForm((prevData) => ({ ...prevData, model: e.target.value }))}
+                <input
+                  type="text"
+                  name="model"
+                  id="model"
+                  onChange={(e) =>
+                    setForm((prevData) => ({
+                      ...prevData,
+                      model: e.target.value,
+                    }))
+                  }
                   value={form.model || ''}
                   required
                 />
@@ -94,7 +102,7 @@ const Parts = () => {
             </s.Row>
 
             <s.Action>
-              <button type='submit'>Cadastro</button>
+              <button type="submit">Cadastro</button>
             </s.Action>
           </s.Content>
         </form>
@@ -111,9 +119,17 @@ const Parts = () => {
             <tbody>
               {data.map((item, index) => (
                 <tr key={index}>
-                  <td className='key'>{item.prefix}</td>
+                  <td className="key">{item.prefix}</td>
                   <td>{item.model}</td>
-                  <td><X size={32} color="#f93465" cursor='pointer' weight="bold" onClick={() => handleDeleteParts(item.prefix)} /></td>
+                  <td>
+                    <X
+                      size={32}
+                      color="#f93465"
+                      cursor="pointer"
+                      weight="bold"
+                      onClick={() => handleDeleteParts(item.prefix)}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -121,7 +137,7 @@ const Parts = () => {
         </s.Parts>
       </s.Card>
     </s.Container>
-  );
-};
+  )
+}
 
-export default Parts;
+export default Parts

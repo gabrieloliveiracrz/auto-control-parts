@@ -1,13 +1,13 @@
-import React from 'react';
-import * as s from '../style';
-import { Envelope } from '@phosphor-icons/react';
-import Confirm from '../../../components/Confirm/Confirm';
-import Back from '../../../components/Back/Back';
+import { Envelope } from '@phosphor-icons/react'
+import React from 'react'
+import Back from '../../../components/Back/Back'
+import Confirm from '../../../components/Confirm/Confirm'
+import * as s from '../style'
 
 const ForgotPassword = () => {
   const onSubmit = (e) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   return (
     <div>
@@ -34,7 +34,7 @@ const ForgotPassword = () => {
         </form>
       </s.Container>
     </div>
-  );
-};
+  )
+}
 
-export default ForgotPassword;
+export default ForgotPassword
