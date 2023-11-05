@@ -1,20 +1,11 @@
-import {
-  Eye,
-  EyeSlash,
-  IdentificationCard,
-  Key,
-  User,
-  WarningCircle,
-} from '@phosphor-icons/react'
+import { Eye, EyeSlash, WarningCircle } from '@phosphor-icons/react'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import Back from '../../../components/Back/Back'
-import Confirm from '../../../components/Confirm/Confirm'
 import api from '../../../services/api'
-import * as s from '../style'
+import * as s from './style'
 
-const SignUp = () => {
-  const [form, setForm] = useState({})
+const ChangePass = ({ user: { code } }) => {
+  const [form, setForm] = useState('')
   const [difPass, setDifPass] = useState(false)
   const [iconPass, setIconPass] = useState(true)
   const [password, setPassword] = useState('')
@@ -49,54 +40,8 @@ const SignUp = () => {
 
   const isFormFilled = password.trim() !== ''
 
-  const handleInput = (e, data) => {
-    if (e && e.target) {
-      setForm({
-        ...form,
-        [e.target.name]: e.target.value,
-      })
-    } else if (data) {
-      setForm({
-        ...form,
-        code: data.code,
-        name: data.name,
-      })
-    }
-  }
-
-  const verifyUserCode = (e) => {
-    e.target.value !== '' &&
-      api
-        .get('users/verify-user-code', {
-          params: {
-            code: e.target.value,
-          },
-        })
-        .then((response) => {
-          const { data } = response
-          const { info, statusCode } = data
-
-          if (statusCode === 200) {
-            if (info.access === 'S') {
-              handleInput(null, info)
-              setIsValidUser(true)
-              toast.warning(
-                `Olá ${info.name}, você já possui acesso ao portal!`,
-              )
-            } else {
-              handleInput(null, info)
-              setIsValidUser(false)
-            }
-          } else {
-            toast.error('Usuário não cadastrado no sistema!')
-            handleInput(null, { name: '' })
-            setIsValidUser(true)
-          }
-        })
-  }
-
   const verifyEqualPassword = (e) => {
-    if (form.password === e.target.value) {
+    if (form === e.target.value) {
       setDifPass(false)
     } else {
       setDifPass(true)
@@ -125,56 +70,39 @@ const SignUp = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
+
+    const info = {
+      password,
+      code,
+    }
+
+    api
+      .put(`/users/change-password`, info)
+      .then((response) => {
+        toast.success('Senha alterada com sucesso!')
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   return (
-    <s.Content>
-      <form method="post" onSubmit={(e) => handleOnSubmit(e)}>
+    <s.Container>
+      <s.Card>
         <s.Title>Cadastro de Usuario</s.Title>
-        <s.Row>
-          <s.IconWithInput className="IconWithInput code">
-            <IdentificationCard size={30} className="icon" />
-            <s.Input
-              type="text"
-              className="code"
-              name="code"
-              placeholder="Código"
-              onBlur={(e) => verifyUserCode(e)}
-              maxLength={3}
-              required
-            ></s.Input>
-          </s.IconWithInput>
-
-          <s.IconWithInput className="IconWithInput name">
-            <User size={30} className="icon" />
-            <s.Input
-              type="text"
-              className="name"
-              name="name"
-              placeholder="Nome"
-              value={form.name ? form.name : ''}
-              required
-              readOnly
-            ></s.Input>
-          </s.IconWithInput>
-        </s.Row>
-
-        <s.Row>
-          <s.InputGroup>
+        <s.Column>
+          <s.FormControl>
             <s.IconWithInput className="IconWithInput">
-              <Key size={30} className="icon" />
-              <s.Input
+              <input
                 type={type}
                 className="password"
                 name="password"
                 placeholder="Senha"
-                onBlur={(e) => {
-                  handleInput(e)
-                }}
+                onChange={(e) => setForm(e.target.value)}
                 onInput={(e) => handlePasswordChange(e)}
                 onKeyDown={(e) => capsLock(e, 'pass')}
                 required
-              ></s.Input>
+              ></input>
               {iconPass === true ? (
                 <Eye
                   size={30}
@@ -221,12 +149,11 @@ const SignUp = () => {
                 </span>
               </s.WarningSpan>
             )}
-          </s.InputGroup>
+          </s.FormControl>
 
-          <s.InputGroup>
+          <s.FormControl>
             <s.IconWithInput className="IconWithInput">
-              <Key size={30} className="icon" />
-              <s.Input
+              <input
                 type={type}
                 className="confirmPass"
                 name="confirmPass"
@@ -234,7 +161,7 @@ const SignUp = () => {
                 onInput={(e) => verifyEqualPassword(e)}
                 onKeyDown={(e) => capsLock(e, 'conf')}
                 required
-              ></s.Input>
+              ></input>
             </s.IconWithInput>
             {capsActiveField === 'conf' && (
               <s.WarningSpan>
@@ -248,19 +175,15 @@ const SignUp = () => {
                 <span>Senha Diferente!</span>
               </s.WarningSpan>
             ) : null}
-          </s.InputGroup>
-        </s.Row>
+          </s.FormControl>
+        </s.Column>
 
-        <s.ButtonGroup>
-          <Confirm
-            message="Cadastrar"
-            disabled={!isPasswordValid || difPass || isValidUser}
-          />
-          <Back redirect="/login/signIn" message="Voltar" />
-        </s.ButtonGroup>
-      </form>
-    </s.Content>
+        <s.Action>
+          <button onClick={(e) => handleOnSubmit(e)} value="Cadastrar" />
+        </s.Action>
+      </s.Card>
+    </s.Container>
   )
 }
 
-export default SignUp
+export default ChangePass

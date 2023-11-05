@@ -6,6 +6,7 @@ import * as s from './style'
 
 // Importar o tema desejado
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
+import api from '../../../services/api'
 
 // Adicionar o gráfico de pizza ao pacote FusionCharts
 Charts(FusionCharts)
@@ -19,23 +20,48 @@ const Dashboard = () => {
   const [data, setData] = useState([])
 
   const test = [
-    { label: 'Quadrado 1', value: '20' },
-    { label: 'Circulo 2', value: '30' },
-    { label: 'Triangulo 3', value: '25' },
+    { label: 'Quadrado', approved: '20', disapproved: '30' },
+    { label: 'Triangulo', approved: '25', disapproved: '35' },
   ]
 
+  useEffect(() => {
+    // setData(test)
+    api
+      .get('/parts/count')
+      .then(({ data: { results } }) => {
+        results.forEach((item) => {
+          console.log(item)
+        })
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }, [])
+
   const columnChartConfig = {
-    type: 'column2d',
+    type: 'stackedcolumn2d',
     dataFormat: 'json',
     dataSource: {
       chart: {
         caption: 'Gráfico de Colunas',
         theme: 'fusion',
       },
-      data: [
-        { label: 'Quadrado 1', value: '20' },
-        { label: 'Circulo 2', value: '30' },
-        { label: 'Triangulo 3', value: '25' },
+      categories: [
+        {
+          category: test.map((item) => ({ label: item.label })),
+        },
+      ],
+      dataset: [
+        {
+          seriesname: 'Aprovado',
+          data: test.map((item) => ({ value: item.approved })),
+          color: '5d61b5',
+        },
+        {
+          seriesname: 'Reprovado',
+          data: test.map((item) => ({ value: item.disapproved })),
+          color: 'f2716f',
+        },
       ],
     },
   }

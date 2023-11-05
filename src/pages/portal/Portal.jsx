@@ -6,6 +6,7 @@ import SideNavBar from '../../components/SideNavBar/SideNavBar'
 import Control from './Control/Control'
 import Admin from './admin/Admin'
 import Dashboard from './dashboard/Dashboard'
+import ChangePass from './changePass/ChangePass'
 import * as s from './style'
 
 const Portal = () => {
@@ -58,6 +59,7 @@ const Portal = () => {
 
       {activePage === 'Control' && <Control user={user} />}
       {activePage === 'Dashboard' && <Dashboard user={user} />}
+      {activePage === 'ChangePass' && <ChangePass user={user} />}
       {activePage === 'Admin' && <Admin user={user} />}
     </s.Container>
   )

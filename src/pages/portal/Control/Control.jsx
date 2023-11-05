@@ -17,10 +17,6 @@ const Control = ({ user }) => {
     finalCheck: null,
   })
 
-  useEffect(() => {
-    console.log(form)
-  }, [form])
-
   // Busca todos os registros já cadastrados
   useEffect(() => {
     api
@@ -90,6 +86,17 @@ const Control = ({ user }) => {
       })
       .then(({ data: { message } }) => {
         toast.success(message)
+        setForm({
+          serie: '',
+          model: '',
+          situation: '',
+          date: '',
+          codeInspector: null,
+          inspector: null,
+          codeSupervisor: null,
+          supervisor: null,
+          finalCheck: null,
+        })
         handleRefreshData()
       })
       .catch((err) => {

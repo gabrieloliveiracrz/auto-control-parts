@@ -1,6 +1,7 @@
 import {
   Clipboard,
   Gear,
+  Key,
   List,
   Monitor,
   SignOut,
@@ -78,6 +79,22 @@ const SideNavBar = ({ activePage, MessageLogout, user }) => {
             />
             {isExpanded && (
               <p className={visited === 'Dashboard' && 'visited'}>Dashboard</p>
+            )}
+          </a>
+          <a
+            className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
+            onClick={() => handleItemClick('ChangePass')}
+          >
+            <Key
+              className="menu-item-icon"
+              size={32}
+              color={visited === 'ChangePass' ? '#00b4d8' : '#FFF'}
+              weight="bold"
+            />
+            {isExpanded && (
+              <p className={visited === 'ChangePass' && 'visited'}>
+                Alterar senha
+              </p>
             )}
           </a>
           {user.role === 'Supervisor' && (
