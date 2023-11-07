@@ -114,8 +114,6 @@ const SignUp = () => {
   }
 
   const capsLock = (e, fieldName) => {
-    const isPasswordField = fieldName === 'pass' || fieldName === 'conf'
-
     if (e.getModifierState('CapsLock')) {
       setCapsActiveField(fieldName)
     } else if (capsActiveField === fieldName) {

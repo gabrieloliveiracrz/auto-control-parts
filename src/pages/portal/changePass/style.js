@@ -80,7 +80,7 @@ export const FormControl = styled.div`
 export const Action = styled.div`
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  margin-top: 1rem;
 
   button {
     padding: 0.6rem 2rem;
@@ -98,6 +98,12 @@ export const Action = styled.div`
     background-color: rgba(0, 0, 0, 0.04);
     border: 1px solid #f2f2f2;
     transition: 100ms;
+  }
+
+  button:disabled {
+    background-color: #6e6e6e;
+    transition: 300ms;
+    cursor: not-allowed;
   }
 `
 
