@@ -32,7 +32,7 @@ const SignIn = () => {
 
   const validateUser = () => {
     api
-      .post('/users/login', {
+      .put('/users/login', {
         code: form.code,
         password: form.password,
       })

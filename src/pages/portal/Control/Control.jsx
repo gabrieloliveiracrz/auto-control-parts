@@ -20,7 +20,7 @@ const Control = ({ user }) => {
   // Busca todos os registros já cadastrados
   useEffect(() => {
     api
-      .get(`/parts/?role=${user.role}`)
+      .get(`/parts?role=${user.role}`)
       .then(({ data: { info } }) => {
         setData(info)
       })
@@ -30,7 +30,7 @@ const Control = ({ user }) => {
   }, [])
 
   const handleRefreshData = () => {
-    api.get(`/parts/?role=${user.role}`).then(({ data: { info } }) => {
+    api.get(`/parts?role=${user.role}`).then(({ data: { info } }) => {
       setData(info)
     })
   }
@@ -38,7 +38,7 @@ const Control = ({ user }) => {
   // Busca as informações do processo buscado
   const handleFindProcessInfo = (serie) => {
     api
-      .get(`/part/?serial_number=${serie}`)
+      .get(`/parts?serial_number=${serie}`)
       .then(({ data: { info } }) => {
         console.log(info)
         setForm({

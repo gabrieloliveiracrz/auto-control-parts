@@ -5,10 +5,6 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-
-  @media (max-width: 768px) {
-    flex: 1;
-  }
 `
 
 export const Card = styled.div`
@@ -18,31 +14,40 @@ export const Card = styled.div`
   padding: 1rem;
   border: 1px solid #f2f2f2;
   border-radius: 10px;
-  max-width: 65%;
+  overflow: auto;
+  max-width: 100%; // Alterado para 100% para ser responsivo
 
   @media (max-width: 768px) {
     padding: 0;
+    height: auto; // Alterado para auto para ser responsivo
     border-radius: 0;
-    flex: 1;
-    max-width: 100%;
+    flex-direction: column; // Adicionado para empilhar os gráficos
+  }
+`
+
+export const Dash = styled.div`
+  display: flex;
+  flex-direction: row; // Alterado para row para manter a orientação dos gráficos
+
+  @media (max-width: 768px) {
+    flex-direction: column; // Alterado para column para empilhar os gráficos
   }
 `
 
 export const Graph = styled.div`
-  display: flex;
-  justify-content: center;
-  flex: 1;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+  flex: 1; // Alterado para 1 para ocupar o espaço disponível
 `
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 2rem;
   padding: 1rem;
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `
 
 export const Row = styled.div`

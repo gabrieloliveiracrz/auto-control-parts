@@ -28,8 +28,9 @@ const User = () => {
 
   const handleFindUserInfo = (code) => {
     api
-      .get(`/user/?code=${code}`)
+      .get(`/users?code=${code}`)
       .then(({ data: { info } }) => {
+        console.log(info)
         setForm(info)
       })
       .catch((err) => {
