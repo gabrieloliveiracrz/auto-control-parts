@@ -18,47 +18,63 @@ const Parts = () => {
     setSelecao(event.target.value)
   }
 
+  // Efeito colateral que é executado após a montagem do componente para obter dados iniciais
   useEffect(() => {
     api.get('/model-parts').then(({ data: { info } }) => {
+      // Atualiza o estado 'data' com os dados obtidos da API
       setData(info)
     })
   }, [])
 
+  // Função para atualizar os dados chamando a API novamente
   const handleRefreshData = () => {
     api.get('/model-parts').then(({ data: { info } }) => {
+      // Atualiza o estado 'data' com os dados obtidos da API
       setData(info)
     })
   }
 
+  // Função chamada quando o formulário é enviado para salvar um modelo
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    // Chama a API para salvar o modelo com base nos dados do formulário
     api
       .post('/model/save', form)
       .then(({ data: { message, statusCode } }) => {
+        // Verifica o status da resposta da API
         if (statusCode === 200) {
+          // Se a operação for bem-sucedida, atualiza os dados e o estado do formulário
           handleRefreshData()
           setForm({
             prefix: '',
             model: '',
           })
+          // Exibe uma mensagem de sucesso
           toast.success(message)
         } else {
+          // Se houver um erro, exibe uma mensagem de erro
           toast.error(message)
         }
       })
       .catch((err) => {
+        // Em caso de erro, exibe o erro no console
         console.error(err)
       })
   }
 
+  // Função para excluir partes de um modelo com base no prefixo
   const handleDeleteParts = (prefix) => {
+    // Chama a API para excluir partes de um modelo com base no prefixo fornecido
     api
       .delete(`/delete-model/?prefix=${prefix}`)
       .then(({ data: { message } }) => {
+        // Se a operação for bem-sucedida, atualiza os dados
         toast.success(message)
         handleRefreshData()
       })
       .catch((err) => {
+        // Em caso de erro, exibe o erro no console
         console.error(err)
       })
   }

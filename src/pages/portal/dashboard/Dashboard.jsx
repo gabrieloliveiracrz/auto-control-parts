@@ -44,13 +44,14 @@ const Dashboard = () => {
       })
   }, [])
 
-  // Define the categories representing the labels on the X-axis
+  // Definindo categorias para o gráfico de colunas
   const categories = [
     {
       category: column.map((item) => ({ label: item.prefixo })),
     },
   ]
-  // Construct the dataset comprising multiple series
+
+  // Definindo dados para o gráfico de colunas
   const dataset = [
     {
       seriesname: 'Aprovado',
@@ -64,42 +65,13 @@ const Dashboard = () => {
     },
   ]
 
-  // const columnChartConfig = {
-  //   type: 'stackedcolumn2d',
-  //   dataFormat: 'json',
-  //   dataSource: {
-  //     chart: {
-  //       caption: 'Gráfico de Colunas',
-  //       theme: 'fusion',
-  //     },
-  //     categories: [
-  //       {
-  //         category: test.map((item) => ({ label: item.prefixo })),
-  //       },
-  //     ],
-  //     dataset: [
-  //       {
-  //         seriesname: 'Aprovado',
-  //         data: test.map((item) => ({ value: item.aprovados })),
-  //         color: '5d61b5',
-  //       },
-  //       {
-  //         seriesname: 'Reprovado',
-  //         data: test.map((item) => ({ value: item.reprovados })),
-  //         color: 'f2716f',
-  //       },
-  //     ],
-  //   },
-  // }
-
-  // STEP 4 - Creating the JSON object to store the chart configurations
+  // Configurações para o gráfico de colunas
   const chartConfigs = {
-    type: 'mscolumn2d', // The chart type
+    type: 'mscolumn2d',
     width: window.innerWidth <= 768 ? '100%' : '500',
-    height: '400', // Height of the chart
-    dataFormat: 'json', // Data type
+    height: '400',
+    dataFormat: 'json',
     dataSource: {
-      // Chart Configurations
       chart: {
         theme: 'fusion',
         caption: 'Status das Peças',
@@ -113,6 +85,7 @@ const Dashboard = () => {
     },
   }
 
+  // Configurações para o gráfico de pizza
   const pieChartConfig = {
     type: 'pie2d',
     width: window.innerWidth <= 768 ? '100%' : '500',
@@ -135,15 +108,19 @@ const Dashboard = () => {
     },
   }
 
+  // Função chamada quando há uma alteração em um campo de entrada no formulário
   const handleInputChange = (e) => {
     const { name, value } = e.target
+    // Atualiza o estado do formulário com os novos valores
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
+  // Função chamada quando o formulário é enviado
   const handleSubmit = (e) => {
     e.preventDefault()
     const { initialDate, finalDate } = form
 
+    // Chama a API para obter dados com base nas datas fornecidas
     api
       .get(`/parts/count?initialDate=${initialDate}&finalDate=${finalDate}`)
       .then(
@@ -153,19 +130,21 @@ const Dashboard = () => {
             message,
           },
         }) => {
+          // Atualiza os estados com os novos dados obtidos
           setColumn(column)
           const pizzaData = pizza[0]
           setPizza(pizzaData)
         },
       )
       .catch((err) => {
+        // Em caso de erro, reinicia os estados e exibe uma mensagem de erro
         setColumn([])
         setPizza({
           aprovados: '',
           reprovados: '',
           extraviados: '',
         })
-        toast.error('nao acho')
+        toast.error('Erro ao buscar dados')
         console.error(err)
       })
   }

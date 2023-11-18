@@ -70,8 +70,11 @@ const Control = ({ user }) => {
       })
   }
 
+  // Função chamada quando o formulário é enviado para validar partes
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    // Chama a API para validar partes com os dados fornecidos no formulário
     api
       .put('/parts/validate', {
         serie: form.serie,
@@ -85,7 +88,10 @@ const Control = ({ user }) => {
         finalCheck: form.finalCheck,
       })
       .then(({ data: { message } }) => {
+        // Se a validação for bem-sucedida, exibe uma mensagem de sucesso
         toast.success(message)
+
+        // Reseta o estado do formulário para valores padrão vazios ou nulos
         setForm({
           serie: '',
           model: '',
@@ -97,9 +103,12 @@ const Control = ({ user }) => {
           supervisor: null,
           finalCheck: null,
         })
+
+        // Chama a função para atualizar os dados após a validação
         handleRefreshData()
       })
       .catch((err) => {
+        // Se houver um erro na validação, exibe uma mensagem de erro no console
         console.error(err)
       })
   }

@@ -15,6 +15,7 @@ const SignIn = () => {
   const [loggin, setLoggin] = useState(false)
   const [capsActive, setCapsActive] = useState(false)
 
+  // Função chamada quando um campo de entrada em um formulário de login é alterado
   const handleLogininputs = (e) => {
     setForm({
       ...form,
@@ -22,14 +23,20 @@ const SignIn = () => {
     })
   }
 
+  // Função chamada quando o formulário de login é enviado
   const onSubmit = (e) => {
     e.preventDefault()
+    // Verifica se as credenciais inseridas correspondem às credenciais de administrador fictícias
     if (form.code === 'admin' && form.password === 'loginfalso123') {
+      // Se sim, salva os detalhes do usuário no armazenamento local e navega para a página inicial
       localStorage.setItem('user', JSON.stringify(form))
       navigate('/')
-    } else validateUser()
+    } else {
+      validateUser()
+    }
   }
 
+  // Função para validar as credenciais do usuário através de uma chamada à API
   const validateUser = () => {
     api
       .put('/users/login', {
@@ -47,11 +54,13 @@ const SignIn = () => {
       })
   }
 
+  // Se o usuário estiver logado, salva as informações do usuário no armazenamento local e navega para a página inicial
   if (loggin) {
     localStorage.setItem('user', JSON.stringify(user))
     navigate('/')
   }
 
+  // Função para alternar a visibilidade da senha no campo de senha do formulário de login
   const changeEye = (e) => {
     if (icon === true) {
       setIcon(false)
@@ -62,6 +71,7 @@ const SignIn = () => {
     }
   }
 
+  // Função para verificar se a tecla Caps Lock está ativada durante a digitação no formulário de login
   const capsLock = (e) => {
     if (e.getModifierState('CapsLock')) {
       setCapsActive(true)

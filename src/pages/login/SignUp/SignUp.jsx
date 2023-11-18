@@ -27,14 +27,19 @@ const SignUp = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(true)
   const [capsActiveField, setCapsActiveField] = useState(null)
 
+  // Função que é chamada quando o valor do campo de senha é alterado
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value
     setPassword(newPassword)
 
+    // Verifica se a senha possui o comprimento válido (entre 8 e 32 caracteres)
     const isValidPasswordLen =
       newPassword.length <= 32 && newPassword.length >= 8
+    // Verifica se a senha contém pelo menos uma letra maiúscula
     const hasUppercase = /[A-Z]/.test(newPassword)
+    // Verifica se a senha contém pelo menos um dígito
     const hasDigit = /\d/.test(newPassword)
+    // Verifica se a senha contém pelo menos um caractere especial
     const hasSpecialChar = /[!@#$%^&*]/.test(newPassword)
 
     setIsValidLen(isValidPasswordLen)
@@ -47,8 +52,10 @@ const SignUp = () => {
     setIsPasswordValid(isPasswordValid)
   }
 
+  // Verifica se o formulário está preenchido com algum valor no campo de senha
   const isFormFilled = password.trim() !== ''
 
+  // Função chamada quando um campo de entrada é alterado
   const handleInput = (e, data) => {
     if (e && e.target) {
       setForm({
@@ -64,6 +71,7 @@ const SignUp = () => {
     }
   }
 
+  // Função para verificar o código do usuário usando uma chamada de API
   const verifyUserCode = (e) => {
     e.target.value !== '' &&
       api
@@ -76,6 +84,7 @@ const SignUp = () => {
           const { data } = response
           const { info, statusCode } = data
 
+          // Verifica o status da resposta da API
           if (statusCode === 200) {
             if (info.access === 'S') {
               handleInput(null, info)
@@ -95,6 +104,7 @@ const SignUp = () => {
         })
   }
 
+  // Função para verificar se a senha foi digitada corretamente em um segundo campo
   const verifyEqualPassword = (e) => {
     if (form.password === e.target.value) {
       setDifPass(false)
@@ -103,6 +113,7 @@ const SignUp = () => {
     }
   }
 
+  // Função para alternar a visibilidade da senha (mostrar ou ocultar)
   const changeEyePass = (e) => {
     if (iconPass === true) {
       setIconPass(false)
@@ -113,6 +124,7 @@ const SignUp = () => {
     }
   }
 
+  // Função para verificar se a tecla Caps Lock está ativada
   const capsLock = (e, fieldName) => {
     if (e.getModifierState('CapsLock')) {
       setCapsActiveField(fieldName)
@@ -121,6 +133,7 @@ const SignUp = () => {
     }
   }
 
+  // Função chamada quando o formulário é enviado (evita o comportamento padrão do envio)
   const handleOnSubmit = (e) => {
     e.preventDefault()
   }
