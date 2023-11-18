@@ -11,8 +11,11 @@ import * as s from './style'
 
 const Portal = () => {
   const navigate = useNavigate()
-  const user = JSON.parse(localStorage.getItem('user'))
+  const storedUser = localStorage.getItem('user')
+  const user = storedUser ? JSON.parse(storedUser) : null
   const [activePage, setActivePage] = useState('Control')
+
+  console.log(user)
 
   useEffect(() => {
     if (!user) {

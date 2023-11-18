@@ -97,7 +97,7 @@ const SideNavBar = ({ activePage, MessageLogout, user }) => {
               </p>
             )}
           </a>
-          {user.role === 'Supervisor' && (
+          {user && user.role === 'Supervisor' && (
             <a
               className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
               onClick={() => handleItemClick('Admin')}

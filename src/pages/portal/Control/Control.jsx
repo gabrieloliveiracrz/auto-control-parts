@@ -202,7 +202,7 @@ const Control = ({ user }) => {
               </s.FormControl>
             </s.Row>
 
-            {user.role === 'Supervisor' && (
+            {user && user.role === 'Supervisor' && (
               <s.Row>
                 <s.FormControl>
                   <label htmlFor="codeSupervisor">Matricula Supervisor</label>
@@ -274,7 +274,9 @@ const Control = ({ user }) => {
                 <th>N° Serie</th>
                 <th>Modelo</th>
                 <th>Situação</th>
-                {user.role === 'Supervisor' && <th>Avaliação Inicial</th>}
+                {user && user.role === 'Supervisor' && (
+                  <th>Avaliação Inicial</th>
+                )}
                 <th>Data</th>
               </tr>
             </thead>
