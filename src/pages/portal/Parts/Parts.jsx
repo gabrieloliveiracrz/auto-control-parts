@@ -3,7 +3,7 @@ import * as s from './style'
 
 import { X } from '@phosphor-icons/react'
 import { toast } from 'react-toastify'
-import api from '../../../../services/api'
+import api from '../../../services/api'
 
 const Parts = () => {
   const [selecao, setSelecao] = useState('')
@@ -82,6 +82,9 @@ const Parts = () => {
   return (
     <s.Container>
       <s.Card>
+        <s.Title>
+          <h3>Peças Cadastradas</h3>
+        </s.Title>
         <form onSubmit={(e) => handleSubmit(e)} method="post">
           <s.Content>
             <s.Row>
@@ -126,34 +129,36 @@ const Parts = () => {
           </s.Content>
         </form>
 
-        <s.Parts>
-          <table>
-            <thead>
-              <tr>
-                <th>Prefixo</th>
-                <th>Modelo</th>
-                <th>Excluir</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
-                  <td className="key">{item.prefix}</td>
-                  <td>{item.model}</td>
-                  <td>
-                    <X
-                      size={32}
-                      color="#f93465"
-                      cursor="pointer"
-                      weight="bold"
-                      onClick={() => handleDeleteParts(item.prefix)}
-                    />
-                  </td>
+        <s.Report>
+          <s.Parts>
+            <table>
+              <thead>
+                <tr>
+                  <th>Prefixo</th>
+                  <th>Modelo</th>
+                  <th>Excluir</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </s.Parts>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={index}>
+                    <td className="key">{item.prefix}</td>
+                    <td>{item.model}</td>
+                    <td>
+                      <X
+                        size={32}
+                        color="#f93465"
+                        cursor="pointer"
+                        weight="bold"
+                        onClick={() => handleDeleteParts(item.prefix)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </s.Parts>
+        </s.Report>
       </s.Card>
     </s.Container>
   )

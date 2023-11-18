@@ -29,7 +29,14 @@ const SignIn = () => {
     // Verifica se as credenciais inseridas correspondem às credenciais de administrador fictícias
     if (form.code === 'admin' && form.password === 'loginfalso123') {
       // Se sim, salva os detalhes do usuário no armazenamento local e navega para a página inicial
-      localStorage.setItem('user', JSON.stringify(form))
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          code: form.code,
+          role: 'Supervisor',
+          name: 'Adminastror',
+        }),
+      )
       navigate('/')
     } else {
       validateUser()

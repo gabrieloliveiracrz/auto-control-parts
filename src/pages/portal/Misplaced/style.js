@@ -3,12 +3,11 @@ import styled from 'styled-components'
 export const Container = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   flex: 1;
   overflow-y: auto;
 
   @media (max-width: 768px) {
-    padding: 0;
-    border-radius: 0px;
     flex: 1;
   }
 `
@@ -19,7 +18,7 @@ export const Card = styled.div`
   background-color: rgba(255, 255, 255, 0.12);
   padding: 1rem;
   border: 1px solid #f2f2f2;
-  flex: 1;
+  max-width: 600px;
   border-radius: 10px;
 
   @media (max-width: 768px) {
@@ -96,8 +95,54 @@ export const Action = styled.div`
   }
 `
 
+export const Report = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`
+
 export const Parts = styled.div`
   display: flex;
+  flex-direction: column;
+
+  table {
+    padding: 0.2rem;
+    flex: 1;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.12);
+
+    th,
+    td {
+      border: 1px solid #ccc; /* Adapte a espessura e a cor da borda conforme necessário */
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      color: #f2f2f2;
+      font-weight: 600;
+    }
+
+    td {
+      color: #f2f2f2;
+    }
+
+    .key {
+      color: #00b4d8;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+
+      &:hover {
+        color: #008cb9;
+      }
+    }
+  }
+`
+
+export const Misplaced = styled.div`
+  display: flex;
+  flex-direction: column;
 
   table {
     padding: 0.2rem;

@@ -6,6 +6,7 @@ import {
   Monitor,
   SignOut,
   User,
+  ListMagnifyingGlass,
   UserPlus,
 } from '@phosphor-icons/react'
 import React, { useState } from 'react'
@@ -55,7 +56,7 @@ const SideNavBar = ({ activePage, MessageLogout, user }) => {
             className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
             onClick={() => handleItemClick('Control')}
           >
-            <Gear
+            <Clipboard
               className="menu-item-icon"
               size={32}
               color={visited === 'Control' ? '#00b4d8' : '#FFF'}
@@ -98,20 +99,57 @@ const SideNavBar = ({ activePage, MessageLogout, user }) => {
             )}
           </a>
           {user && user.role === 'Supervisor' && (
-            <a
-              className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
-              onClick={() => handleItemClick('Admin')}
-            >
-              <UserPlus
-                className="menu-item-icon"
-                size={32}
-                color={visited === 'Admin' ? '#00b4d8' : '#FFF'}
-                weight="bold"
-              />
-              {isExpanded && (
-                <p className={visited === 'Admin' && 'visited'}>Painel Admin</p>
-              )}
-            </a>
+            <>
+              <a
+                className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
+                onClick={() => handleItemClick('Liber')}
+              >
+                <UserPlus
+                  className="menu-item-icon"
+                  size={32}
+                  color={visited === 'Liber' ? '#00b4d8' : '#FFF'}
+                  weight="bold"
+                />
+                {isExpanded && (
+                  <p className={visited === 'Liber' && 'visited'}>
+                    Liberação de Usuário
+                  </p>
+                )}
+              </a>
+
+              <a
+                className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
+                onClick={() => handleItemClick('CadPart')}
+              >
+                <Gear
+                  className="menu-item-icon"
+                  size={32}
+                  color={visited === 'CadPart' ? '#00b4d8' : '#FFF'}
+                  weight="bold"
+                />
+                {isExpanded && (
+                  <p className={visited === 'CadPart' && 'visited'}>
+                    Cadastro de Peças
+                  </p>
+                )}
+              </a>
+              <a
+                className={isExpanded ? 'menu-item' : 'menu-item menu-item-NX'}
+                onClick={() => handleItemClick('Misplaced')}
+              >
+                <ListMagnifyingGlass
+                  className="menu-item-icon"
+                  size={32}
+                  color={visited === 'Misplaced' ? '#00b4d8' : '#FFF'}
+                  weight="bold"
+                />
+                {isExpanded && (
+                  <p className={visited === 'Misplaced' && 'visited'}>
+                    Peças extraviadas
+                  </p>
+                )}
+              </a>
+            </>
           )}
         </div>
       </div>

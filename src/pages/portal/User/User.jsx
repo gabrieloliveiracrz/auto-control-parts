@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import * as s from './style'
 
 import { toast } from 'react-toastify'
-import api from '../../../../services/api'
+import api from '../../../services/api'
 
 const User = () => {
   const [data, setData] = useState([])
@@ -36,8 +36,6 @@ const User = () => {
     api
       .get(`/users?code=${code}`)
       .then(({ data: { info } }) => {
-        // Exibe as informações no console (pode ser removido em produção)
-        console.log(info)
         // Atualiza o estado do formulário com as informações do usuário encontrado
         setForm(info)
       })

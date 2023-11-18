@@ -8,7 +8,7 @@ export const Container = styled.div`
   overflow-y: auto;
 
   @media (max-width: 768px) {
-    justify-content: space-between;
+    flex: 1;
   }
 `
 
@@ -19,55 +19,29 @@ export const Card = styled.div`
   padding: 1rem;
   border: 1px solid #f2f2f2;
   max-width: 600px;
-  max-height: 600px;
   border-radius: 10px;
 
   @media (max-width: 768px) {
-    max-height: 100%;
     padding: 0;
     border-radius: 0px;
     flex: 1;
   }
 `
 
-export const Pages = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-    flex: 1;
-  }
-`
-
-export const Page = styled.div`
+export const Title = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   color: #f2f2f2;
   font-size: 1.4rem;
-  border-right: 1px solid #f2f2f2;
-  flex: 1;
-
-  span {
-    cursor: pointer;
-
-    &.visited {
-      color: #00b4d8;
-      transition: 100ms;
-    }
-  }
-
-  &:last-child {
-    border: none;
-  }
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 `
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 2rem;
+  padding: 1rem;
 `
 
 export const Row = styled.div`
@@ -76,6 +50,11 @@ export const Row = styled.div`
 
   & .auto {
     flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
   }
 `
 
@@ -88,7 +67,8 @@ export const FormControl = styled.div`
     color: #f2f2f2;
   }
 
-  input {
+  input,
+  select {
     padding: 0.4rem;
     background-color: #f2f2f2;
     border: none;
@@ -106,6 +86,55 @@ export const Action = styled.div`
     padding: 0.6rem 2rem;
     border: none;
     border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    color: #f2f2f2;
+    font-weight: 600;
+    font-size: 1.2rem;
     cursor: pointer;
+  }
+
+  button:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    border: 1px solid #f2f2f2;
+    transition: 100ms;
+  }
+`
+
+export const Parts = styled.div`
+  display: flex;
+
+  table {
+    padding: 0.2rem;
+    flex: 1;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.12);
+
+    th,
+    td {
+      border: 1px solid #ccc; /* Adapte a espessura e a cor da borda conforme necessário */
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      color: #f2f2f2;
+      font-weight: 600;
+    }
+
+    td {
+      color: #f2f2f2;
+    }
+
+    .key {
+      color: #00b4d8;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 600;
+
+      &:hover {
+        color: #008cb9;
+      }
+    }
   }
 `

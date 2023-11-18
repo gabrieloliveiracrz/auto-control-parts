@@ -4,9 +4,11 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import { useNavigate } from 'react-router-dom'
 import SideNavBar from '../../components/SideNavBar/SideNavBar'
 import Control from './Control/Control'
-import Admin from './admin/Admin'
 import Dashboard from './dashboard/Dashboard'
 import ChangePass from './changePass/ChangePass'
+import Parts from './Parts/Parts'
+import User from './User/User'
+import Misplaced from './Misplaced/Misplaced'
 import * as s from './style'
 
 const Portal = () => {
@@ -14,8 +16,6 @@ const Portal = () => {
   const storedUser = localStorage.getItem('user')
   const user = storedUser ? JSON.parse(storedUser) : null
   const [activePage, setActivePage] = useState('Control')
-
-  console.log(user)
 
   useEffect(() => {
     if (!user) {
@@ -63,7 +63,9 @@ const Portal = () => {
       {activePage === 'Control' && <Control user={user} />}
       {activePage === 'Dashboard' && <Dashboard user={user} />}
       {activePage === 'ChangePass' && <ChangePass user={user} />}
-      {activePage === 'Admin' && <Admin user={user} />}
+      {activePage === 'Liber' && <User user={user} />}
+      {activePage === 'CadPart' && <Parts user={user} />}
+      {activePage === 'Misplaced' && <Misplaced user={user} />}
     </s.Container>
   )
 }
