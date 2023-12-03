@@ -3,12 +3,14 @@ import styled from 'styled-components'
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex: 1;
   overflow-y: auto;
+  margin-top: 4rem;
 
   @media (max-width: 768px) {
-    flex: 1;
+    align-items: flex-start;
+    margin-top: 0;
   }
 `
 
@@ -73,6 +75,11 @@ export const FormControl = styled.div`
     border: none;
     border-radius: 8px;
     outline: none;
+  }
+
+  input[type='radio'] {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 `
 

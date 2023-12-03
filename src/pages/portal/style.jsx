@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   height: 100vh;
   flex: 1;
+  overflow: auto;
 `
 
 export const CustomAlert = styled.div`

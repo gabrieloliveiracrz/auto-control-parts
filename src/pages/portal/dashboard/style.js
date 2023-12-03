@@ -4,7 +4,12 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: auto;
   flex: 1;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+  }
 `
 
 export const Card = styled.div`
