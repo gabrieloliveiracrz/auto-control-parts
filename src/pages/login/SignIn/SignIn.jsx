@@ -145,7 +145,7 @@ const SignIn = () => {
         </s.InputGroup>
         <Confirm message="Entrar" />
       </form>
-
+      {/* 
       <s.NotAcess>
         <s.p>
           Ainda não possui acesso?{' '}
@@ -153,7 +153,7 @@ const SignIn = () => {
             <s.Span>Clique Aqui</s.Span>
           </s.StyledLink>
         </s.p>
-      </s.NotAcess>
+      </s.NotAcess> */}
     </s.Content>
   )
 }
